@@ -8,7 +8,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const MaxPoolDenomCount = 2;
+const MaxPoolDenomCount = 2
 
 // Every liquidity pools have an amm model that balances the assets.
 // All amm models implements AMM interface.
@@ -41,6 +41,11 @@ type AMM interface {
 	// Takes desired amount of coins (sdk.Coins).
 	// Returns amount of coins to deposit to get desired coins.
 	EstimateDeposit(poolCoins sdk.Coins, desiredCoins sdk.Coins) (sdk.Coins, error)
+
+	// Estimate amount of coins returned by burning liquidity pool token.
+	// Takes the poolCoins and burnAmount.
+	// Returns estimated coins.
+	EstimateBurnShare(poolCoins sdk.Coins, burnAmount sdk.Coin) (sdk.Coins, error)
 }
 
 // *******AMMs********
@@ -93,4 +98,20 @@ func (b backup) EstimateDeposit(poolCoins sdk.Coins, desiredCoins sdk.Coins) (sd
 	xEst = z.Sub(x)
 
 	return sdk.NewCoins(sdk.NewCoin(desiredDenom, xEst)), nil
+}
+
+func (b backup) EstimateBurnShare(poolCoins sdk.Coins, burnAmount sdk.Coin) (sdk.Coins, error) {
+	totalSupply := sdk.NewInt(1000) // Replace this with the actual total supply of the liquidity pool tokens.
+	poolShare := burnAmount.Amount.ToDec().Quo(totalSupply.ToDec())
+	returnedCoins := sdk.Coins{}
+
+	for _, coin := range poolCoins {
+		coinAmount := coin.Amount.ToDec().Mul(poolShare).TruncateInt()
+		if coinAmount.LTE(sdk.ZeroInt()) {
+			return sdk.Coins{}, sdkerrors.Wrapf(sdkerrors.ErrLogic, "Returned coin amount is less than or equal to zero")
+		}
+		returnedCoins = returnedCoins.Add(sdk.NewCoin(coin.Denom, coinAmount))
+	}
+
+	return returnedCoins, nil
 }
