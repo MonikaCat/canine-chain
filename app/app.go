@@ -19,7 +19,6 @@ import (
 	"github.com/jackalLabs/canine-chain/app/upgrades/testnet/fixstrays"
 	"github.com/jackalLabs/canine-chain/app/upgrades/testnet/killdeals"
 	paramUpgrade "github.com/jackalLabs/canine-chain/app/upgrades/testnet/params"
-
 	"github.com/prometheus/client_golang/prometheus"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
@@ -85,24 +84,24 @@ import (
 	upgradeclient "github.com/cosmos/cosmos-sdk/x/upgrade/client"
 	upgradekeeper "github.com/cosmos/cosmos-sdk/x/upgrade/keeper"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	ica "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts"
-	icacontroller "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/controller"
-	icacontrollerkeeper "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/controller/keeper"
-	icacontrollertypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/controller/types"
-	icahost "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host"
-	icahostkeeper "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/keeper"
-	icahosttypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/types"
-	icatypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/types"
-	"github.com/cosmos/ibc-go/v3/modules/apps/transfer"
-	ibctransferkeeper "github.com/cosmos/ibc-go/v3/modules/apps/transfer/keeper"
-	ibctransfertypes "github.com/cosmos/ibc-go/v3/modules/apps/transfer/types"
-	ibc "github.com/cosmos/ibc-go/v3/modules/core"
-	ibcclient "github.com/cosmos/ibc-go/v3/modules/core/02-client"
-	ibcclientclient "github.com/cosmos/ibc-go/v3/modules/core/02-client/client"
-	ibcclienttypes "github.com/cosmos/ibc-go/v3/modules/core/02-client/types"
-	porttypes "github.com/cosmos/ibc-go/v3/modules/core/05-port/types"
-	ibchost "github.com/cosmos/ibc-go/v3/modules/core/24-host"
-	ibckeeper "github.com/cosmos/ibc-go/v3/modules/core/keeper"
+	ica "github.com/cosmos/ibc-go/v4/modules/apps/27-interchain-accounts"
+	icacontroller "github.com/cosmos/ibc-go/v4/modules/apps/27-interchain-accounts/controller"
+	icacontrollerkeeper "github.com/cosmos/ibc-go/v4/modules/apps/27-interchain-accounts/controller/keeper"
+	icacontrollertypes "github.com/cosmos/ibc-go/v4/modules/apps/27-interchain-accounts/controller/types"
+	icahost "github.com/cosmos/ibc-go/v4/modules/apps/27-interchain-accounts/host"
+	icahostkeeper "github.com/cosmos/ibc-go/v4/modules/apps/27-interchain-accounts/host/keeper"
+	icahosttypes "github.com/cosmos/ibc-go/v4/modules/apps/27-interchain-accounts/host/types"
+	icatypes "github.com/cosmos/ibc-go/v4/modules/apps/27-interchain-accounts/types"
+	"github.com/cosmos/ibc-go/v4/modules/apps/transfer"
+	ibctransferkeeper "github.com/cosmos/ibc-go/v4/modules/apps/transfer/keeper"
+	ibctransfertypes "github.com/cosmos/ibc-go/v4/modules/apps/transfer/types"
+	ibc "github.com/cosmos/ibc-go/v4/modules/core"
+	ibcclient "github.com/cosmos/ibc-go/v4/modules/core/02-client"
+	ibcclientclient "github.com/cosmos/ibc-go/v4/modules/core/02-client/client"
+	ibcclienttypes "github.com/cosmos/ibc-go/v4/modules/core/02-client/types"
+	porttypes "github.com/cosmos/ibc-go/v4/modules/core/05-port/types"
+	ibchost "github.com/cosmos/ibc-go/v4/modules/core/24-host"
+	ibckeeper "github.com/cosmos/ibc-go/v4/modules/core/keeper"
 
 	// Note: please do your research before using this in production app, this is a demo and not an officially
 	// supported IBC team implementation. It has no known issues, but do your own research before using it.
@@ -148,6 +147,17 @@ import (
 	notificationsmodulekeeper "github.com/jackalLabs/canine-chain/x/notifications/keeper"
 	notificationsmoduletypes "github.com/jackalLabs/canine-chain/x/notifications/types"
 
+	quasarOracleModule "github.com/quasarlabs/quasarnode/x/qoracle"
+	quasarOracleModuleKeeper "github.com/quasarlabs/quasarnode/x/qoracle/keeper"
+	quasarOracleModuleTypes "github.com/quasarlabs/quasarnode/x/qoracle/types"
+
+	quasarEpochModule "github.com/quasarlabs/quasarnode/x/epochs"
+	quasarEpochModuleKeeper "github.com/quasarlabs/quasarnode/x/epochs/keeper"
+	quasarEpochModuleTypes "github.com/quasarlabs/quasarnode/x/epochs/types"
+
+	quasarOsmosModule "github.com/quasarlabs/quasarnode/x/qoracle/osmosis"
+	quasarOsmosModuleKeeper "github.com/quasarlabs/quasarnode/x/qoracle/osmosis/keeper"
+	quasarOsmosModuleTypes "github.com/quasarlabs/quasarnode/x/qoracle/osmosis/types"
 	/*
 
 		dsigmodule "github.com/jackalLabs/canine-chain/x/dsig"
@@ -259,7 +269,7 @@ var (
 		filetreemodule.AppModuleBasic{},
 		oraclemodule.AppModuleBasic{},
 		notificationsmodule.AppModuleBasic{},
-
+		quasarOracleModule.AppModuleBasic{},
 		/*
 			dsigmodule.AppModuleBasic{},
 		*/
@@ -280,6 +290,7 @@ var (
 		storagemoduletypes.ModuleName:       {authtypes.Minter, authtypes.Burner},
 		oraclemoduletypes.ModuleName:        nil,
 		notificationsmoduletypes.ModuleName: nil,
+		quasarOracleModuleTypes.ModuleName:  {authtypes.Minter, authtypes.Burner},
 
 		/*
 			dsigmoduletypes.ModuleName:     {authtypes.Minter, authtypes.Burner},
@@ -334,12 +345,17 @@ type JackalApp struct {
 	scopedInterTxKeeper       capabilitykeeper.ScopedKeeper
 	scopedTransferKeeper      capabilitykeeper.ScopedKeeper
 	scopedWasmKeeper          capabilitykeeper.ScopedKeeper
+	scopedQOracleKeeper       capabilitykeeper.ScopedKeeper
 
 	RnsKeeper           rnsmodulekeeper.Keeper
 	OracleKeeper        oraclemodulekeeper.Keeper
 	StorageKeeper       storagemodulekeeper.Keeper
 	FileTreeKeeper      filetreemodulekeeper.Keeper
 	NotificationsKeeper notificationsmodulekeeper.Keeper
+
+	QuasarOracleKeeper quasarOracleModuleKeeper.Keeper
+	EpochsKeeper       *quasarEpochModuleKeeper.Keeper
+	QOsmosisKeeper     quasarOsmosModuleKeeper.Keeper
 
 	/*
 
@@ -387,7 +403,7 @@ func NewJackalApp(
 		feegrant.StoreKey, authzkeeper.StoreKey, wasm.StoreKey, icahosttypes.StoreKey,
 		icacontrollertypes.StoreKey, intertxtypes.StoreKey, rnsmoduletypes.StoreKey,
 		storagemoduletypes.StoreKey, filetreemoduletypes.StoreKey, oraclemoduletypes.StoreKey,
-		notificationsmoduletypes.StoreKey,
+		notificationsmoduletypes.StoreKey, quasarOracleModuleTypes.StoreKey,
 
 		/*
 			, dsigmoduletypes.StoreKey,
@@ -401,6 +417,7 @@ func NewJackalApp(
 		storagemoduletypes.MemStoreKey,
 		rnsmoduletypes.MemStoreKey,
 		notificationsmoduletypes.MemStoreKey,
+		quasarOracleModuleTypes.MemStoreKey,
 		// filetreemoduletypes.MemStoreKey, minttypes.MemStoreKey
 	)
 
@@ -437,7 +454,45 @@ func NewJackalApp(
 	scopedInterTxKeeper := app.capabilityKeeper.ScopeToModule(intertxtypes.ModuleName)
 	scopedTransferKeeper := app.capabilityKeeper.ScopeToModule(ibctransfertypes.ModuleName)
 	scopedWasmKeeper := app.capabilityKeeper.ScopeToModule(wasm.ModuleName)
+	scopedQOsmosisKeeper := app.capabilityKeeper.ScopeToModule(quasarOsmosModuleTypes.SubModuleName)
 	app.capabilityKeeper.Seal()
+
+	app.EpochsKeeper = quasarEpochModuleKeeper.NewKeeper(appCodec, keys[quasarEpochModuleTypes.StoreKey])
+	epochsModule := quasarEpochModule.NewAppModule(appCodec, app.EpochsKeeper)
+
+	app.QuasarOracleKeeper = quasarOracleModuleKeeper.NewKeeper(
+		appCodec,
+		keys[quasarEpochModuleTypes.StoreKey],
+		memKeys[quasarOracleModuleTypes.MemStoreKey],
+		tkeys[quasarOracleModuleTypes.TStoreKey],
+		app.getSubspace(quasarOracleModuleTypes.ModuleName),
+		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+	)
+
+	app.QOsmosisKeeper = quasarOsmosModuleKeeper.NewKeeper(
+		appCodec,
+		keys[quasarOsmosModuleTypes.StoreKey],
+		app.getSubspace(quasarOsmosModuleTypes.SubModuleName),
+		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+		app.ibcKeeper.ClientKeeper,
+		app.ibcKeeper.ChannelKeeper,
+		app.ibcKeeper.ChannelKeeper,
+		&app.ibcKeeper.PortKeeper,
+		scopedQOsmosisKeeper,
+		app.QuasarOracleKeeper,
+	)
+	qosmoIBCModule := quasarOsmosModule.NewIBCModule(app.QOsmosisKeeper)
+
+	app.QuasarOracleKeeper.RegisterPoolOracle(app.QOsmosisKeeper)
+	app.QuasarOracleKeeper.Seal()
+	qoracleModule := quasarOracleModule.NewAppModule(appCodec, app.QuasarOracleKeeper, app.QOsmosisKeeper)
+
+	// Set epoch hooks
+	app.EpochsKeeper.SetHooks(
+		quasarEpochModuleTypes.NewMultiEpochHooks(
+			app.QOsmosisKeeper.EpochHooks(),
+		),
+	)
 
 	// add keepers
 	app.AccountKeeper = authkeeper.NewAccountKeeper(
@@ -584,7 +639,7 @@ func NewJackalApp(
 	interTxModule := intertx.NewAppModule(appCodec, app.interTxKeeper)
 	interTxIBCModule := intertx.NewIBCModule(app.interTxKeeper)
 	// You will likely want to swap out the second argument with your own reviewed and maintained ica auth module
-	icaControllerIBCModule := icacontroller.NewIBCModule(app.icaControllerKeeper, interTxIBCModule)
+	icaControllerIBCModule := icacontroller.NewIBCMiddleware(app.icaControllerKeeper, interTxIBCModule)
 
 	// create evidence keeper with router
 	evidenceKeeper := evidencekeeper.NewKeeper(
@@ -691,11 +746,12 @@ func NewJackalApp(
 		govRouter.AddRoute(wasm.RouterKey, wasm.NewWasmProposalHandler(app.wasmKeeper, enabledProposals))
 	}
 	ibcRouter.
-		AddRoute(wasm.ModuleName, wasm.NewIBCHandler(app.wasmKeeper, app.ibcKeeper.ChannelKeeper)).
+		AddRoute(wasm.ModuleName, wasm.NewIBCHandler(app.wasmKeeper, app.ibcKeeper.ChannelKeeper, app.ibcKeeper.ChannelKeeper)).
 		AddRoute(ibctransfertypes.ModuleName, transferIBCModule).
 		AddRoute(icacontrollertypes.SubModuleName, icaControllerIBCModule).
 		AddRoute(icahosttypes.SubModuleName, icaHostIBCModule).
-		AddRoute(intertxtypes.ModuleName, icaControllerIBCModule)
+		AddRoute(intertxtypes.ModuleName, icaControllerIBCModule).
+		AddRoute(quasarOsmosModuleTypes.SubModuleName, qosmoIBCModule)
 	app.ibcKeeper.SetRouter(ibcRouter)
 
 	app.govKeeper = govkeeper.NewKeeper(
@@ -739,7 +795,6 @@ func NewJackalApp(
 		ibc.NewAppModule(app.ibcKeeper),
 		params.NewAppModule(app.paramsKeeper),
 		transferModule,
-		icaModule,
 		interTxModule,
 		crisis.NewAppModule(&app.crisisKeeper, skipGenesisInvariants), // always be last to make sure that it checks for all invariants and not only part of them
 		rnsModule,
@@ -747,10 +802,11 @@ func NewJackalApp(
 		filetreeModule,
 		oracleModule,
 		notificationsModule,
-
+		epochsModule,
+		qoracleModule,
+		icaModule,
 		/*
 			dsigModule,
-
 		*/
 	)
 
