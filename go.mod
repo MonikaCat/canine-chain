@@ -48,6 +48,7 @@ require (
 require (
 	github.com/cosmos/interchain-accounts v0.2.6
 	github.com/golang/mock v1.6.0
+	github.com/quasarlabs/quasarnode v0.0.0-00010101000000-000000000000
 )
 
 require (
@@ -73,7 +74,7 @@ require (
 	github.com/coinbase/rosetta-sdk-go v0.7.9 // indirect
 	github.com/cometbft/cometbft-db v0.7.0 // indirect
 	github.com/confio/ics23/go v0.9.0 // indirect
-	github.com/cosmos/btcutil v1.0.4 // indirect
+	github.com/cosmos/btcutil v1.0.5 // indirect
 	github.com/cosmos/cosmos-db v0.0.0-20221226095112-f3c38ecb5e32 // indirect
 	github.com/cosmos/go-bip39 v1.0.0 // indirect
 	github.com/cosmos/gorocksdb v1.2.0 // indirect
@@ -140,6 +141,7 @@ require (
 	github.com/sasha-s/go-deadlock v0.3.1 // indirect
 	github.com/spf13/afero v1.9.2 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
+	github.com/strangelove-ventures/async-icq/v4 v4.0.0-rc0 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
 	github.com/tecbot/gorocksdb v0.0.0-20191217155057-f0fad39f321c // indirect
 	github.com/tendermint/go-amino v0.16.0 // indirect
@@ -174,6 +176,8 @@ replace (
 
 	// use cosmos-flavored protobufs
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
+
+	github.com/quasarlabs/quasarnode => github.com/quasar-finance/quasar-preview v0.1.1
 
 	github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.34.27
 

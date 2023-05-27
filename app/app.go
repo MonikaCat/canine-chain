@@ -9,8 +9,6 @@ import (
 	"strings"
 
 	ibcfee "github.com/cosmos/ibc-go/v4/modules/apps/29-fee"
-	v4 "github.com/jackalLabs/canine-chain/app/upgrades/v4"
-
 	ibcfeekeeper "github.com/cosmos/ibc-go/v4/modules/apps/29-fee/keeper"
 	"github.com/jackalLabs/canine-chain/app/upgrades"
 	"github.com/jackalLabs/canine-chain/app/upgrades/recovery"
@@ -23,6 +21,13 @@ import (
 	"github.com/jackalLabs/canine-chain/app/upgrades/testnet/fixstrays"
 	"github.com/jackalLabs/canine-chain/app/upgrades/testnet/killdeals"
 	paramUpgrade "github.com/jackalLabs/canine-chain/app/upgrades/testnet/params"
+	v4 "github.com/jackalLabs/canine-chain/app/upgrades/v4"
+	epochsmodule "github.com/quasarlabs/quasarnode/x/epochs"
+	epochsmoduletypes "github.com/quasarlabs/quasarnode/x/epochs/types"
+	qoraclemodule "github.com/quasarlabs/quasarnode/x/qoracle"
+	qosmo "github.com/quasarlabs/quasarnode/x/qoracle/osmosis"
+	qosmotypes "github.com/quasarlabs/quasarnode/x/qoracle/osmosis/types"
+	qoraclemoduletypes "github.com/quasarlabs/quasarnode/x/qoracle/types"
 
 	"github.com/prometheus/client_golang/prometheus"
 
@@ -140,6 +145,9 @@ import (
 	notificationsmodulekeeper "github.com/jackalLabs/canine-chain/x/notifications/keeper"
 	notificationsmoduletypes "github.com/jackalLabs/canine-chain/x/notifications/types"
 
+	epochsmodulekeeper "github.com/quasarlabs/quasarnode/x/epochs/keeper"
+	qoraclemodulekeeper "github.com/quasarlabs/quasarnode/x/qoracle/keeper"
+	qosmokeeper "github.com/quasarlabs/quasarnode/x/qoracle/osmosis/keeper"
 	/*
 
 		dsigmodule "github.com/jackalLabs/canine-chain/x/dsig"
@@ -316,9 +324,14 @@ type JackalApp struct {
 	authzKeeper      authzkeeper.Keeper
 	wasmKeeper       wasm.Keeper
 
+	EpochsKeeper   *epochsmodulekeeper.Keeper
+	QOsmosisKeeper qosmokeeper.Keeper
+	QOracleKeeper  qoraclemodulekeeper.Keeper
+
 	scopedIBCKeeper      capabilitykeeper.ScopedKeeper
 	scopedTransferKeeper capabilitykeeper.ScopedKeeper
 	scopedWasmKeeper     capabilitykeeper.ScopedKeeper
+	scopedQOracleKeeper  capabilitykeeper.ScopedKeeper
 
 	RnsKeeper           rnsmodulekeeper.Keeper
 	OracleKeeper        oraclemodulekeeper.Keeper
@@ -372,19 +385,23 @@ func NewJackalApp(
 		feegrant.StoreKey, authzkeeper.StoreKey, wasm.StoreKey, rnsmoduletypes.StoreKey,
 		storagemoduletypes.StoreKey, filetreemoduletypes.StoreKey, oraclemoduletypes.StoreKey,
 		notificationsmoduletypes.StoreKey, ibcfeetypes.StoreKey,
-
+		epochsmoduletypes.StoreKey,
+		qoraclemoduletypes.StoreKey,
+		qosmotypes.StoreKey,
 		/*
 			, dsigmoduletypes.StoreKey,
 
 		*/
 	)
-	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
+	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey, qoraclemoduletypes.MemStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(
 		capabilitytypes.MemStoreKey,
 		oraclemoduletypes.MemStoreKey,
 		storagemoduletypes.MemStoreKey,
 		rnsmoduletypes.MemStoreKey,
 		notificationsmoduletypes.MemStoreKey,
+		qoraclemoduletypes.TStoreKey,
+
 		// filetreemoduletypes.MemStoreKey, minttypes.MemStoreKey
 	)
 
@@ -418,6 +435,8 @@ func NewJackalApp(
 	scopedIBCKeeper := app.capabilityKeeper.ScopeToModule(ibchost.ModuleName)
 	scopedTransferKeeper := app.capabilityKeeper.ScopeToModule(ibctransfertypes.ModuleName)
 	scopedWasmKeeper := app.capabilityKeeper.ScopeToModule(wasm.ModuleName)
+	scopedQOsmosisKeeper := app.capabilityKeeper.ScopeToModule(qosmotypes.SubModuleName)
+
 	app.capabilityKeeper.Seal()
 
 	// add keepers
@@ -551,6 +570,43 @@ func NewJackalApp(
 	)
 	app.evidenceKeeper = *evidenceKeeper
 
+	app.EpochsKeeper = epochsmodulekeeper.NewKeeper(appCodec, keys[epochsmoduletypes.StoreKey])
+	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper)
+
+	app.QOracleKeeper = qoraclemodulekeeper.NewKeeper(
+		appCodec,
+		keys[qoraclemoduletypes.StoreKey],
+		memKeys[qoraclemoduletypes.MemStoreKey],
+		tkeys[qoraclemoduletypes.TStoreKey],
+		app.getSubspace(qoraclemoduletypes.ModuleName),
+		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+	)
+
+	app.QOsmosisKeeper = qosmokeeper.NewKeeper(
+		appCodec,
+		keys[qosmotypes.StoreKey],
+		app.getSubspace(qosmotypes.SubModuleName),
+		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+		app.ibcKeeper.ClientKeeper,
+		app.ibcKeeper.ChannelKeeper,
+		app.ibcKeeper.ChannelKeeper,
+		&app.ibcKeeper.PortKeeper,
+		scopedQOsmosisKeeper,
+		app.QOracleKeeper,
+	)
+	qosmoIBCModule := qosmo.NewIBCModule(app.QOsmosisKeeper)
+
+	app.QOracleKeeper.RegisterPoolOracle(app.QOsmosisKeeper)
+	app.QOracleKeeper.Seal()
+	qoracleModule := qoraclemodule.NewAppModule(appCodec, app.QOracleKeeper, app.QOsmosisKeeper)
+
+	// Set epoch hooks
+	app.EpochsKeeper.SetHooks(
+		epochsmoduletypes.NewMultiEpochHooks(
+			app.QOsmosisKeeper.EpochHooks(),
+		),
+	)
+
 	wasmDir := filepath.Join(homePath, "wasm")
 	wasmConfig, err := wasm.ReadWasmConfig(appOpts)
 	if err != nil {
@@ -658,6 +714,7 @@ func NewJackalApp(
 
 	ibcRouter.AddRoute(ibctransfertypes.ModuleName, transferStack)
 	ibcRouter.AddRoute(wasm.ModuleName, wasmStack)
+	ibcRouter.AddRoute(qosmotypes.SubModuleName, qosmoIBCModule)
 	app.ibcKeeper.SetRouter(ibcRouter)
 
 	app.govKeeper = govkeeper.NewKeeper(
@@ -707,6 +764,8 @@ func NewJackalApp(
 		filetreeModule,
 		oracleModule,
 		notificationsModule,
+		qoracleModule,
+		epochsModule,
 
 		/*
 			dsigModule,
@@ -720,6 +779,7 @@ func NewJackalApp(
 	// NOTE: staking module is required if HistoricalEntries param > 0
 	app.mm.SetOrderBeginBlockers(
 		upgradetypes.ModuleName,
+		epochsmoduletypes.ModuleName,
 		capabilitytypes.ModuleName,
 		minttypes.ModuleName,
 		distrtypes.ModuleName,
@@ -745,6 +805,7 @@ func NewJackalApp(
 		filetreemoduletypes.ModuleName,
 		oraclemoduletypes.ModuleName,
 		notificationsmoduletypes.ModuleName,
+		qoraclemoduletypes.ModuleName,
 
 		/*
 			dsigmoduletypes.ModuleName,
@@ -754,6 +815,7 @@ func NewJackalApp(
 
 	app.mm.SetOrderEndBlockers(
 		crisistypes.ModuleName,
+		qoraclemoduletypes.ModuleName,
 		govtypes.ModuleName,
 		stakingtypes.ModuleName,
 		capabilitytypes.ModuleName,
@@ -773,13 +835,14 @@ func NewJackalApp(
 		ibctransfertypes.ModuleName,
 		ibchost.ModuleName,
 		ibcfeetypes.ModuleName,
-
-		wasm.ModuleName,
 		rnsmoduletypes.ModuleName,
 		storagemoduletypes.ModuleName,
 		filetreemoduletypes.ModuleName,
 		oraclemoduletypes.ModuleName,
 		notificationsmoduletypes.ModuleName,
+
+		epochsmoduletypes.ModuleName,
+		wasm.ModuleName,
 
 		/*
 			dsigmoduletypes.ModuleName,
@@ -806,6 +869,7 @@ func NewJackalApp(
 		crisistypes.ModuleName,
 		genutiltypes.ModuleName,
 		evidencetypes.ModuleName,
+		qoraclemoduletypes.ModuleName,
 		authz.ModuleName,
 		feegrant.ModuleName,
 		paramstypes.ModuleName,
@@ -816,7 +880,7 @@ func NewJackalApp(
 		ibchost.ModuleName,
 		// wasm after ibc transfer
 		ibcfeetypes.ModuleName,
-
+		epochsmoduletypes.ModuleName,
 		wasm.ModuleName,
 		rnsmoduletypes.ModuleName,
 		storagemoduletypes.ModuleName,
@@ -832,6 +896,7 @@ func NewJackalApp(
 
 	app.mm.SetOrderExportGenesis(
 		capabilitytypes.ModuleName,
+		epochsmoduletypes.ModuleName,
 		authtypes.ModuleName,
 		banktypes.ModuleName,
 		distrtypes.ModuleName,
@@ -850,6 +915,7 @@ func NewJackalApp(
 		// additional non simd modules
 		ibctransfertypes.ModuleName,
 		ibchost.ModuleName,
+		qoraclemoduletypes.ModuleName,
 		// wasm after ibc transfer
 		wasm.ModuleName,
 		rnsmoduletypes.ModuleName,
@@ -864,6 +930,7 @@ func NewJackalApp(
 	// NOTE: The relationships module must occur before the profile's module, or all relationships will be deleted
 	app.mm.SetOrderMigrations(
 		authtypes.ModuleName,
+		epochsmoduletypes.ModuleName,
 		authz.ModuleName,
 		banktypes.ModuleName,
 		capabilitytypes.ModuleName,
@@ -877,6 +944,7 @@ func NewJackalApp(
 		slashingtypes.ModuleName,
 		stakingtypes.ModuleName,
 		ibctransfertypes.ModuleName,
+		qoraclemoduletypes.ModuleName,
 		paramstypes.ModuleName,
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
@@ -973,6 +1041,7 @@ func NewJackalApp(
 	app.scopedIBCKeeper = scopedIBCKeeper
 	app.scopedTransferKeeper = scopedTransferKeeper
 	app.scopedWasmKeeper = scopedWasmKeeper
+	app.scopedQOracleKeeper = scopedQOsmosisKeeper
 
 	if loadLatest {
 		if err := app.LoadLatestVersion(); err != nil {
@@ -1165,6 +1234,11 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(storagemoduletypes.ModuleName)
 	paramsKeeper.Subspace(filetreemoduletypes.ModuleName)
 	paramsKeeper.Subspace(notificationsmoduletypes.ModuleName)
+	paramsKeeper.Subspace(epochsmoduletypes.ModuleName)
+	// paramsKeeper.Subspace(qbankmoduletypes.ModuleName)
+	// paramsKeeper.Subspace(orionmoduletypes.ModuleName)
+	paramsKeeper.Subspace(qoraclemoduletypes.ModuleName).WithKeyTable(qoraclemoduletypes.ParamKeyTable())
+	paramsKeeper.Subspace(qosmotypes.SubModuleName)
 
 	return paramsKeeper
 }
