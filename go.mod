@@ -3,7 +3,7 @@ module github.com/jackalLabs/canine-chain
 go 1.20
 
 require (
-	github.com/BiPhan4/wasmd3232 v0.32.3
+	github.com/BiPhan4/wasmd32 v0.32.3
 	github.com/CosmWasm/wasmvm v1.2.3
 	github.com/cosmos/cosmos-sdk v0.45.17
 	github.com/cosmos/ibc-go/v4 v4.4.1
@@ -159,7 +159,6 @@ require (
 )
 
 replace (
-
 	// use cosmos keyring
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.2.0
 
