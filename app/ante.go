@@ -7,8 +7,8 @@ import (
 	ibcante "github.com/cosmos/ibc-go/v4/modules/core/ante"
 	"github.com/cosmos/ibc-go/v4/modules/core/keeper"
 
-	wasmkeeper "github.com/BiPhan4/wasmd/x/wasm/keeper"
-	wasmTypes "github.com/BiPhan4/wasmd/x/wasm/types"
+	wasmkeeper "github.com/BiPhan4/wasmd32/x/wasm/keeper"
+	wasmTypes "github.com/BiPhan4/wasmd32/x/wasm/types"
 )
 
 // HandlerOptions extend the SDK's AnteHandler options by requiring the IBC

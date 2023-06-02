@@ -1,7 +1,7 @@
 package app
 
 import (
-	wasmkeeper "github.com/BiPhan4/wasmd/x/wasm/keeper"
+	wasmkeeper "github.com/BiPhan4/wasmd32/x/wasm/keeper"
 )
 
 const (
