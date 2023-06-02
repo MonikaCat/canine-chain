@@ -15,7 +15,7 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v4/modules/apps/transfer/keeper"
 	ibckeeper "github.com/cosmos/ibc-go/v4/modules/core/keeper"
 
-	"github.com/jackalLabs/wasmd/x/wasm"
+	"github.com/JackalLabs/wasmd/x/wasm"
 )
 
 type TestSupport struct {

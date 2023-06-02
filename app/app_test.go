@@ -12,9 +12,9 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
+	"github.com/JackalLabs/wasmd/x/wasm"
+	wasmtypes "github.com/JackalLabs/wasmd/x/wasm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/wasmd/x/wasm"
-	wasmtypes "github.com/jackalLabs/wasmd/x/wasm/types"
 )
 
 var emptyWasmOpts []wasm.Option

@@ -118,11 +118,11 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
+	"github.com/JackalLabs/wasmd/x/wasm"
+	wasmclient "github.com/JackalLabs/wasmd/x/wasm/client"
+	wasmkeeper "github.com/JackalLabs/wasmd/x/wasm/keeper"
 	wasmappparams "github.com/jackalLabs/canine-chain/app/params"
 	owasm "github.com/jackalLabs/canine-chain/wasmbinding"
-	"github.com/jackalLabs/wasmd/x/wasm"
-	wasmclient "github.com/jackalLabs/wasmd/x/wasm/client"
-	wasmkeeper "github.com/jackalLabs/wasmd/x/wasm/keeper"
 
 	mint "github.com/jackalLabs/canine-chain/x/jklmint"
 	mintkeeper "github.com/jackalLabs/canine-chain/x/jklmint/keeper"
