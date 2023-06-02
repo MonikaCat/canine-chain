@@ -12,8 +12,8 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/JackalLabs/wasmd/x/wasm"
-	wasmtypes "github.com/JackalLabs/wasmd/x/wasm/types"
+	"github.com/BiPhan4/wasmd/x/wasm"
+	wasmtypes "github.com/BiPhan4/wasmd/x/wasm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
