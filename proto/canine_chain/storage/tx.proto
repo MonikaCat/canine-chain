@@ -29,10 +29,9 @@ service Msg {
 
 message MsgPostContract {
   string creator = 1;
-  string merkle = 2;
-  string signee = 3;
-  string filesize = 4;
-  string fid = 5;
+  string cid = 2;
+  string item = 3;
+  string hashlist = 4;
 }
 
 message MsgPostContractResponse {}
@@ -51,11 +50,15 @@ message MsgPostproofResponse {
 
 message MsgSignContract {
   string creator = 1;
-  string cid = 2;
-  bool pay_once = 3;
+  string fid = 2;
+  string merkle = 3;
+  int64 duration = 4;
+  uint64 fileSize = 5;
 }
 
-message MsgSignContractResponse {}
+message MsgSignContractResponse {
+  repeated string providers = 1;
+}
 
 
 message MsgSetProviderIP {

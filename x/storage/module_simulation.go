@@ -100,16 +100,6 @@ func (am AppModule) RegisterStoreDecoder(_ sdk.StoreDecoderRegistry) {}
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
-	var weightMsgPostContract int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgPostContract, &weightMsgPostContract, nil,
-		func(_ *rand.Rand) {
-			weightMsgPostContract = defaultWeightMsgPostContract
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgPostContract,
-		storagesimulation.SimulateMsgPostContract(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
 
 	var weightMsgPostproof int
 	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgPostproof, &weightMsgPostproof, nil,
@@ -122,16 +112,16 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		storagesimulation.SimulateMsgPostproof(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgSignContract int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSignContract, &weightMsgSignContract, nil,
-		func(_ *rand.Rand) {
-			weightMsgSignContract = defaultWeightMsgSignContract
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgSignContract,
-		storagesimulation.SimulateMsgSignContract(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
+	//var weightMsgSignContract int
+	//simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSignContract, &weightMsgSignContract, nil,
+	//	func(_ *rand.Rand) {
+	//		weightMsgSignContract = defaultWeightMsgSignContract
+	//	},
+	//)
+	//operations = append(operations, simulation.NewWeightedOperation(
+	//	weightMsgSignContract,
+	//	storagesimulation.SimulateMsgSignContract(am.accountKeeper, am.bankKeeper, am.keeper),
+	//))
 
 	var weightMsgSetProviderIP int
 	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetProviderIP, &weightMsgSetProviderIP, nil,

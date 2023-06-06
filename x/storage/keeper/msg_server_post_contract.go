@@ -2,68 +2,66 @@ package keeper
 
 import (
 	"context"
-	"crypto/sha256"
 	"fmt"
-	"io"
-
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerr "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jackalLabs/canine-chain/x/storage/types"
 )
 
 func (k msgServer) PostContract(goCtx context.Context, msg *types.MsgPostContract) (*types.MsgPostContractResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	provider, ok := k.GetProviders(ctx, msg.Creator)
+	_, ok := k.GetProviders(ctx, msg.Creator)
 	if !ok {
 		return nil, fmt.Errorf("can't find provider")
 	}
 
-	ts, ok := sdk.NewIntFromString(provider.Totalspace)
-
-	if !ok {
-		return nil, fmt.Errorf("error parsing total space")
+	contract, found := k.GetContracts(ctx, msg.Cid)
+	if !found {
+		return nil, sdkerr.Wrapf(sdkerr.ErrNotFound, "contract not found")
 	}
 
-	fs, ok := sdk.NewIntFromString(msg.Filesize)
-
-	if !ok {
-		return nil, fmt.Errorf("error parsing file size")
+	verified := VerifyDeal(contract.Merkle, msg.Hashlist, 0, msg.Item)
+	if !verified {
+		return nil, sdkerr.Wrapf(types.ErrCannotVerifyProof, "failed to verify proof")
 	}
 
-	if k.GetProviderUsing(ctx, msg.Creator)+fs.Int64() > ts.Int64() {
-		return nil, fmt.Errorf("not enough space on provider")
+	validProvider := false
+
+	providers := contract.Providers
+	for _, provider := range providers {
+		if provider == msg.Creator {
+			validProvider = true
+			break
+		}
 	}
 
-	h := sha256.New()
-	_, err := io.WriteString(h, fmt.Sprintf("%s%s%s", msg.Signee, msg.Creator, msg.Fid))
-	if err != nil {
-		return nil, err
-	}
-	hashName := h.Sum(nil)
-
-	cid, err := MakeCid(hashName)
-	if err != nil {
-		return nil, err
+	if !validProvider {
+		return nil, sdkerr.Wrapf(sdkerr.ErrUnauthorized, "you are not listed as a provider on this deal!")
 	}
 
-	_, cidtaken := k.GetContracts(ctx, cid)
-	if cidtaken {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "cannot post the same contract twice")
+	endBlock := ctx.BlockHeight() + contract.Duration
+	if contract.Duration == 0 {
+		endBlock = 0
 	}
 
-	newContract := types.Contracts{
-		Cid:      cid,
-		Signee:   msg.Signee,
-		Fid:      msg.Fid,
-		Filesize: msg.Filesize,
-		Creator:  msg.Creator,
-		Merkle:   msg.Merkle,
-		Age:      ctx.BlockHeight(),
+	deal := types.ActiveDeals{
+		Cid:           contract.Cid,
+		Signee:        contract.Creator,
+		Provider:      msg.Creator,
+		Startblock:    fmt.Sprintf("%d", ctx.BlockHeight()),
+		Endblock:      fmt.Sprintf("%d", endBlock),
+		Filesize:      fmt.Sprintf("%d", contract.Filesize),
+		Proofverified: "true",
+		Proofsmissed:  "0",
+		Blocktoprove:  "0",
+		Creator:       contract.Creator,
+		Merkle:        contract.Merkle,
+		Fid:           contract.Fid,
 	}
 
-	k.SetContracts(ctx, newContract)
+	k.SetActiveDeals(ctx, deal)
 
 	return &types.MsgPostContractResponse{}, nil
 }

@@ -7,8 +7,8 @@ import (
 )
 
 // SetContracts set a specific contracts in the store from its index
-func (k Keeper) SetContracts(ctx sdk.Context, contracts types.ContractV2) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ContractV2KeyPrefix))
+func (k Keeper) SetContractsOld(ctx sdk.Context, contracts types.Contracts) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ContractsKeyPrefix))
 	b := k.cdc.MustMarshal(&contracts)
 	store.Set(types.ContractsKey(
 		contracts.Cid,
@@ -16,11 +16,11 @@ func (k Keeper) SetContracts(ctx sdk.Context, contracts types.ContractV2) {
 }
 
 // GetContracts returns a contracts from its index
-func (k Keeper) GetContracts(
+func (k Keeper) GetContractsOld(
 	ctx sdk.Context,
 	cid string,
-) (val types.ContractV2, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ContractV2KeyPrefix))
+) (val types.Contracts, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ContractsKeyPrefix))
 
 	b := store.Get(types.ContractsKey(
 		cid,
@@ -34,25 +34,25 @@ func (k Keeper) GetContracts(
 }
 
 // RemoveContracts removes a contracts from the store
-func (k Keeper) RemoveContracts(
+func (k Keeper) RemoveContractsOld(
 	ctx sdk.Context,
 	cid string,
 ) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ContractV2KeyPrefix))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ContractsKeyPrefix))
 	store.Delete(types.ContractsKey(
 		cid,
 	))
 }
 
 // GetAllContracts returns all contracts
-func (k Keeper) GetAllContracts(ctx sdk.Context) (list []types.ContractV2) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ContractV2KeyPrefix))
+func (k Keeper) GetAllContractsOld(ctx sdk.Context) (list []types.Contracts) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ContractsKeyPrefix))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
 
 	for ; iterator.Valid(); iterator.Next() {
-		var val types.ContractV2
+		var val types.Contracts
 		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}

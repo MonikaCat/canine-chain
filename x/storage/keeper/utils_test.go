@@ -136,3 +136,47 @@ func (suite *KeeperTestSuite) TestGetStorageCost() {
 		})
 	}
 }
+
+func (suite *KeeperTestSuite) TestGetStorageCostKb() {
+	suite.SetupSuite()
+	_, sKeeper, _ := setupMsgServer(suite)
+
+	cases := []struct {
+		name     string
+		kbs      int64
+		months   int64
+		expected sdk.Int
+	}{
+		{
+			name:     "10Gb for 5months",
+			kbs:      10_000_000,
+			months:   5,
+			expected: sdk.NewInt(555555),
+		},
+		{
+			name:     "5Gb for 24months",
+			kbs:      5_000_000,
+			months:   24,
+			expected: sdk.NewInt(1333333),
+		},
+		{
+			name:     "100kb for 24months",
+			kbs:      100,
+			months:   24,
+			expected: sdk.NewInt(26),
+		},
+		{
+			name:     "100mb for 24months",
+			kbs:      100000,
+			months:   24,
+			expected: sdk.NewInt(26666),
+		},
+	}
+
+	for _, tc := range cases {
+		suite.Run(tc.name, func() {
+			cost := sKeeper.GetStorageCostKbs(suite.ctx, tc.kbs, tc.months*720)
+			suite.Require().Equal(tc.expected, cost)
+		})
+	}
+}

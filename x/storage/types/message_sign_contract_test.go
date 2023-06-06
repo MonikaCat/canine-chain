@@ -17,21 +17,21 @@ func TestMsgSignContract_ValidateBasic(t *testing.T) {
 			name: "invalid address",
 			msg: MsgSignContract{
 				Creator: "invalid_address",
-				Cid:     "jklc1j3p63s42w7ywaczlju626st55mzu5z39qh6g4g",
+				Fid:     "jklf129c5wfsdex0zcpfnzarjhf7ks9nrrspjgqlmv7e6lmcz4z8ecacsrwz7hu",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "invalid cid",
 			msg: MsgSignContract{
 				Creator: "jkl1j3p63s42w7ywaczlju626st55mzu5z399f5n6n",
-				Cid:     "invalid_cid",
+				Fid:     "invalid_cid",
 			},
 			err: sdkerrors.ErrInvalidRequest,
 		}, {
 			name: "valid address",
 			msg: MsgSignContract{
 				Creator: "jkl1j3p63s42w7ywaczlju626st55mzu5z399f5n6n",
-				Cid:     "jklc1j3p63s42w7ywaczlju626st55mzu5z39qh6g4g",
+				Fid:     "jklf129c5wfsdex0zcpfnzarjhf7ks9nrrspjgqlmv7e6lmcz4z8ecacsrwz7hu",
 			},
 		},
 	}

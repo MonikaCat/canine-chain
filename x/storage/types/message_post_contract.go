@@ -2,7 +2,6 @@ package types
 
 import (
 	fmt "fmt"
-	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/bech32"
@@ -13,13 +12,12 @@ const TypeMsgPostContract = "post_contract"
 
 var _ sdk.Msg = &MsgPostContract{}
 
-func NewMsgPostContract(creator string, signee string, filesize string, fid string, merkle string) *MsgPostContract {
+func NewMsgPostContract(creator string, cid string, item string, hashList string) *MsgPostContract {
 	return &MsgPostContract{
 		Creator:  creator,
-		Signee:   signee,
-		Filesize: filesize,
-		Fid:      fid,
-		Merkle:   merkle,
+		Cid:      cid,
+		Item:     item,
+		Hashlist: hashList,
 	}
 }
 
@@ -53,24 +51,12 @@ func (msg *MsgPostContract) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator prefix (%s)", fmt.Errorf("%s is not a valid prefix here. Expected `jkl`", prefix))
 	}
 
-	prefix, _, err = bech32.DecodeAndConvert(msg.Signee)
+	prefix, _, err = bech32.DecodeAndConvert(msg.Cid)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid signee address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid cid (%s)", err)
 	}
-	if prefix != AddressPrefix {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid signee prefix (%s)", fmt.Errorf("%s is not a valid prefix here. Expected `jkl`", prefix))
-	}
-
-	prefix, _, err = bech32.DecodeAndConvert(msg.Fid)
-	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid fid (%s)", err)
-	}
-	if prefix != FidPrefix {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid fid prefix (%s)", fmt.Errorf("%s is not a valid prefix here. Expected `jklf`", prefix))
-	}
-
-	if _, err := strconv.Atoi(msg.Filesize); err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidType, "cannot parse file size (%s)", err)
+	if prefix != CidPrefix {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid cid prefix (%s)", fmt.Errorf("%s is not a valid prefix here. Expected `jklc`", prefix))
 	}
 
 	return nil

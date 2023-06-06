@@ -16,12 +16,11 @@ func CmdPostContract() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "post-contract [hashes] [signee] [filesize] [fid]",
 		Short: "Broadcast message post-contract",
-		Args:  cobra.ExactArgs(4),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argHashes := args[0]
-			argSignee := args[1]
-			argFilesize := args[2]
-			argFid := args[3]
+			argCid := args[0]
+			argItem := args[1]
+			argHashes := args[2]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -30,9 +29,8 @@ func CmdPostContract() *cobra.Command {
 
 			msg := types.NewMsgPostContract(
 				clientCtx.GetFromAddress().String(),
-				argSignee,
-				argFilesize,
-				argFid,
+				argCid,
+				argItem,
 				argHashes,
 			)
 			if err := msg.ValidateBasic(); err != nil {

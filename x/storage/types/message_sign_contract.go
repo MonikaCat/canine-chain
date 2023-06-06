@@ -12,11 +12,13 @@ const TypeMsgSignContract = "sign_contract"
 
 var _ sdk.Msg = &MsgSignContract{}
 
-func NewMsgSignContract(creator string, cid string, payOnce bool) *MsgSignContract {
+func NewMsgSignContract(creator string, fid string, merkle string, duration int64, fileSize uint64) *MsgSignContract {
 	return &MsgSignContract{
-		Creator: creator,
-		Cid:     cid,
-		PayOnce: payOnce,
+		Creator:  creator,
+		Fid:      fid,
+		Merkle:   merkle,
+		FileSize: fileSize,
+		Duration: duration,
 	}
 }
 
@@ -50,12 +52,12 @@ func (msg *MsgSignContract) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator prefix (%s)", fmt.Errorf("%s is not a valid prefix here. Expected `jkl`", prefix))
 	}
 
-	prefix, _, err = bech32.DecodeAndConvert(msg.Cid)
+	prefix, _, err = bech32.DecodeAndConvert(msg.Fid)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid cid (%s)", err)
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid fid (%s)", err)
 	}
-	if prefix != CidPrefix {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid cid prefix (%s)", fmt.Errorf("%s is not a valid prefix here. Expected `jklc`", prefix))
+	if prefix != FidPrefix {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid fid prefix (%s)", fmt.Errorf("%s is not a valid prefix here. Expected `jklf`", prefix))
 	}
 	return nil
 }

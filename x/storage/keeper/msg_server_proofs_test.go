@@ -208,14 +208,14 @@ func (suite *KeeperTestSuite) TestPostProof() {
 	// Sign Contract for active deal
 	_, err = msgSrvr.SignContract(context, &types.MsgSignContract{
 		Creator: user.String(),
-		Cid:     cid1,
+		Fid:     "fid",
 	})
 	suite.Require().NoError(err)
 
 	// Sign Contract #2 for active deal
 	_, err = msgSrvr.SignContract(context, &types.MsgSignContract{
 		Creator: user.String(),
-		Cid:     cid2,
+		Fid:     "fid2",
 	})
 	suite.Require().Error(err)
 

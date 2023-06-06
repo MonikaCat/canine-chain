@@ -690,6 +690,7 @@ func NewJackalApp(
 	if len(enabledProposals) != 0 {
 		govRouter.AddRoute(wasm.RouterKey, wasm.NewWasmProposalHandler(app.wasmKeeper, enabledProposals))
 	}
+
 	ibcRouter.
 		AddRoute(wasm.ModuleName, wasm.NewIBCHandler(app.wasmKeeper, app.ibcKeeper.ChannelKeeper)).
 		AddRoute(ibctransfertypes.ModuleName, transferIBCModule).

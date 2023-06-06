@@ -15,3 +15,14 @@ message Contracts {
   string fid = 9;
   int64 age = 10;
 }
+
+message ContractV2 {
+  string cid = 1;
+  string creator = 2;
+  repeated string providers = 3;
+  string merkle = 4;
+  int64 duration = 5;
+  uint64 filesize = 6;
+  string fid = 7;
+  int64 age = 8;
+}

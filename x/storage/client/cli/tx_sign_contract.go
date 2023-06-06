@@ -20,9 +20,17 @@ func CmdSignContract() *cobra.Command {
 		Short: "Broadcast message sign-contract",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argCid := args[0]
+			argFid := args[0]
+			argMerkle := args[1]
+			argDuration := args[2]
+			argFileSize := args[3]
 
-			pay, err := cmd.Flags().GetBool(FlagPayUpfront)
+			duration, err := strconv.ParseInt(argDuration, 10, 64)
+			if err != nil {
+				return err
+			}
+
+			fSize, err := strconv.ParseInt(argFileSize, 10, 64)
 			if err != nil {
 				return err
 			}
@@ -34,8 +42,10 @@ func CmdSignContract() *cobra.Command {
 
 			msg := types.NewMsgSignContract(
 				clientCtx.GetFromAddress().String(),
-				argCid,
-				pay,
+				argFid,
+				argMerkle,
+				duration,
+				uint64(fSize),
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
