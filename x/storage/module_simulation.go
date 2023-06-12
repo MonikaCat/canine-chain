@@ -25,7 +25,7 @@ const (
 	//nolint:all
 	opWeightMsgPostContract = "op_weight_msg_post_contract"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgPostContract int = 100
+	// defaultWeightMsgPostContract int = 100
 
 	//nolint:all
 	opWeightMsgPostproof = "op_weight_msg_postproof"
@@ -35,7 +35,7 @@ const (
 	//nolint:all
 	opWeightMsgSignContract = "op_weight_msg_sign_contract"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgSignContract int = 90
+	// defaultWeightMsgSignContract int = 90
 
 	//nolint:all
 	opWeightMsgSetProviderIP = "op_weight_msg_set_provider_ip"
@@ -112,16 +112,16 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		storagesimulation.SimulateMsgPostproof(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	//var weightMsgSignContract int
-	//simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSignContract, &weightMsgSignContract, nil,
+	// var weightMsgSignContract int
+	// simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSignContract, &weightMsgSignContract, nil,
 	//	func(_ *rand.Rand) {
 	//		weightMsgSignContract = defaultWeightMsgSignContract
 	//	},
-	//)
-	//operations = append(operations, simulation.NewWeightedOperation(
+	// )
+	// operations = append(operations, simulation.NewWeightedOperation(
 	//	weightMsgSignContract,
 	//	storagesimulation.SimulateMsgSignContract(am.accountKeeper, am.bankKeeper, am.keeper),
-	//))
+	// ))
 
 	var weightMsgSetProviderIP int
 	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetProviderIP, &weightMsgSetProviderIP, nil,

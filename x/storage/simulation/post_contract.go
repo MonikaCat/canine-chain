@@ -1,10 +1,10 @@
 package simulation
 
-//func SimulateMsgPostContract(
+// func SimulateMsgPostContract(
 //	ak types.AccountKeeper,
 //	bk types.BankKeeper,
 //	k keeper.Keeper,
-//) simtypes.Operation {
+// ) simtypes.Operation {
 //	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 //	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 //		providers := k.GetAllProviders(ctx)
@@ -62,4 +62,4 @@ package simulation
 //
 //		return simulation.GenAndDeliverTx(txCtx, fees)
 //	}
-//}
+// }

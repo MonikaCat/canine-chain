@@ -5,8 +5,6 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
-	"io"
-	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -17,17 +15,27 @@ const SigningProviderLength = 3
 
 func (k Keeper) PostNewContract(ctx sdk.Context, fid string, creator string, merkle string, duration int64, fileSize uint64) (*types.MsgSignContractResponse, error) {
 	providers := k.GetActiveProviders(ctx)
-	if len(providers) < 3 {
-		return nil, types.ErrNotEnoughActiveProviders
-	}
+	providerList := make([]string, 0)
 
-	providerList := make([]string, SigningProviderLength)
+	if len(providers) < 3 {
+		provs := k.GetAllProviders(ctx)
+		providers = make([]types.ActiveProviders, 0)
+		for i := 0; i < len(provs); i++ {
+			ap := types.ActiveProviders{
+				Address: provs[i].Address,
+			}
+			providers = append(providers, ap)
+			if i > 20 {
+				break
+			}
+		}
+	}
 
 	w := sha256.New() // creating new cid
 	w.Write([]byte(fid))
 	w.Write([]byte(creator))
-	for i := 0; i < SigningProviderLength; i++ {
-		providerList[i] = providers[i].Address
+	for i := 0; i < len(providerList); i++ {
+		providerList = append(providerList, providers[i].Address)
 		_, err := w.Write([]byte(providerList[i]))
 		if err != nil {
 			return nil, err
@@ -59,39 +67,6 @@ func (k Keeper) PostNewContract(ctx sdk.Context, fid string, creator string, mer
 	k.SetContracts(ctx, contract)
 
 	cids := []string{contract.Cid}
-
-	endBlock := ctx.BlockHeight() + duration
-	if duration == 0 {
-		endBlock = 0
-	}
-
-	for i := 0; i < 2; i++ {
-		h := sha256.New()
-		_, err := io.WriteString(h, fmt.Sprintf("%s%d", contract.Cid, i))
-		if err != nil {
-			return nil, err
-		}
-		hashName := h.Sum(nil)
-
-		scid, err := MakeCid(hashName)
-		if err != nil {
-			return nil, err
-		}
-
-		newContract := types.Strays{
-			Cid:      scid,
-			Signee:   contract.Creator,
-			Fid:      contract.Fid,
-			Filesize: strconv.FormatUint(contract.Filesize, 10),
-			Merkle:   contract.Merkle,
-			End:      endBlock,
-		}
-
-		cids = append(cids, scid)
-
-		k.SetStrays(ctx, newContract)
-
-	}
 
 	cidArr, err := json.Marshal(cids)
 	if err != nil {
@@ -163,40 +138,40 @@ func (k msgServer) SignContract(goCtx context.Context, msg *types.MsgSignContrac
 
 	return k.Keeper.PostNewContract(ctx, msg.Fid, msg.Creator, msg.Merkle, msg.Duration, msg.FileSize)
 
-	//contract, found := k.GetContracts(ctx, msg.Cid)
-	//if !found {
+	// contract, found := k.GetContracts(ctx, msg.Cid)
+	// if !found {
 	//	return nil, fmt.Errorf("contract not found")
-	//}
+	// }
 	//
-	//_, found = k.GetActiveDeals(ctx, msg.Cid)
-	//if found {
+	// _, found = k.GetActiveDeals(ctx, msg.Cid)
+	// if found {
 	//	return nil, fmt.Errorf("contract already exists")
-	//}
+	// }
 	//
-	//_, found = k.GetStrays(ctx, msg.Cid)
-	//if found {
+	// _, found = k.GetStrays(ctx, msg.Cid)
+	// if found {
 	//	return nil, fmt.Errorf("contract already exists")
-	//}
+	// }
 	//
-	//if contract.Signee != msg.Creator {
+	// if contract.Signee != msg.Creator {
 	//	return nil, fmt.Errorf("you do not have permission to approve this contract")
-	//}
+	// }
 	//
-	//size, ok := sdk.NewIntFromString(contract.Filesize)
-	//if !ok {
+	// size, ok := sdk.NewIntFromString(contract.Filesize)
+	// if !ok {
 	//	return nil, fmt.Errorf("cannot parse size")
-	//}
+	// }
 	//
-	//pieces := size.Quo(sdk.NewInt(k.GetParams(ctx).ChunkSize))
+	// pieces := size.Quo(sdk.NewInt(k.GetParams(ctx).ChunkSize))
 	//
-	//var pieceToStart int64
+	// var pieceToStart int64
 	//
-	//if !pieces.IsZero() {
+	// if !pieces.IsZero() {
 	//	pieceToStart = ctx.BlockHeight() % pieces.Int64()
-	//}
+	// }
 	//
-	//var end int64
-	//if msg.PayOnce {
+	// var end int64
+	// if msg.PayOnce {
 	//	s := size.Quo(sdk.NewInt(1_000_000_000)).Int64()
 	//	if s <= 0 {
 	//		s = 1
@@ -212,9 +187,9 @@ func (k msgServer) SignContract(goCtx context.Context, msg *types.MsgSignContrac
 	//	}
 	//
 	//	end = (200*31_536_000)/6 + ctx.BlockHeight()
-	//}
+	// }
 	//
-	//deal := types.ActiveDeals{
+	// deal := types.ActiveDeals{
 	//	Cid:           contract.Cid,
 	//	Signee:        contract.Signee,
 	//	Provider:      contract.Creator,
@@ -227,9 +202,9 @@ func (k msgServer) SignContract(goCtx context.Context, msg *types.MsgSignContrac
 	//	Proofsmissed:  "0",
 	//	Merkle:        contract.Merkle,
 	//	Fid:           contract.Fid,
-	//}
+	// }
 	//
-	//if end == 0 {
+	// if end == 0 {
 	//	fsize, ok := sdk.NewIntFromString(contract.Filesize)
 	//	if !ok {
 	//		return nil, fmt.Errorf("cannot parse file size")
@@ -251,16 +226,16 @@ func (k msgServer) SignContract(goCtx context.Context, msg *types.MsgSignContrac
 	//	payInfo.SpaceUsed += fsize.Int64() * 3
 	//
 	//	k.SetStoragePaymentInfo(ctx, payInfo)
-	//}
+	// }
 	//
-	//k.SetActiveDeals(ctx, deal)
-	//k.RemoveContracts(ctx, contract.Cid)
+	// k.SetActiveDeals(ctx, deal)
+	// k.RemoveContracts(ctx, contract.Cid)
 	//
-	//ftc, found := k.GetFidCid(ctx, contract.Fid)
+	// ftc, found := k.GetFidCid(ctx, contract.Fid)
 	//
-	//cids := []string{contract.Cid}
+	// cids := []string{contract.Cid}
 	//
-	//if found {
+	// if found {
 	//	var ncids []string
 	//	err := json.Unmarshal([]byte(ftc.Cids), &ncids)
 	//	if err != nil {
@@ -268,9 +243,9 @@ func (k msgServer) SignContract(goCtx context.Context, msg *types.MsgSignContrac
 	//	}
 	//
 	//	cids = append(cids, ncids...)
-	//}
+	// }
 	//
-	//for i := 0; i < 2; i++ {
+	// for i := 0; i < 2; i++ {
 	//	h := sha256.New()
 	//	_, err := io.WriteString(h, fmt.Sprintf("%s%d", contract.Cid, i))
 	//	if err != nil {
@@ -296,19 +271,19 @@ func (k msgServer) SignContract(goCtx context.Context, msg *types.MsgSignContrac
 	//
 	//	k.SetStrays(ctx, newContract)
 	//
-	//}
+	// }
 	//
-	//cidarr, err := json.Marshal(cids)
-	//if err != nil {
+	// cidarr, err := json.Marshal(cids)
+	// if err != nil {
 	//	return nil, err
-	//}
+	// }
 	//
-	//nftc := types.FidCid{
+	// nftc := types.FidCid{
 	//	Fid:  contract.Fid,
 	//	Cids: string(cidarr),
-	//}
+	// }
 	//
-	//k.SetFidCid(ctx, nftc)
+	// k.SetFidCid(ctx, nftc)
 	//
-	//return &types.MsgSignContractResponse{}, nil
+	// return &types.MsgSignContractResponse{}, nil
 }

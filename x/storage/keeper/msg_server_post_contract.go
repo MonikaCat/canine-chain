@@ -2,7 +2,11 @@ package keeper
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/json"
 	"fmt"
+	"io"
+	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerr "github.com/cosmos/cosmos-sdk/types/errors"
@@ -46,6 +50,8 @@ func (k msgServer) PostContract(goCtx context.Context, msg *types.MsgPostContrac
 		endBlock = 0
 	}
 
+	cids := []string{contract.Cid}
+
 	deal := types.ActiveDeals{
 		Cid:           contract.Cid,
 		Signee:        contract.Creator,
@@ -62,6 +68,45 @@ func (k msgServer) PostContract(goCtx context.Context, msg *types.MsgPostContrac
 	}
 
 	k.SetActiveDeals(ctx, deal)
+
+	for i := 0; i < 2; i++ {
+		h := sha256.New()
+		_, err := io.WriteString(h, fmt.Sprintf("%s%d", contract.Cid, i))
+		if err != nil {
+			return nil, err
+		}
+		hashName := h.Sum(nil)
+
+		scid, err := MakeCid(hashName)
+		if err != nil {
+			return nil, err
+		}
+
+		newContract := types.Strays{
+			Cid:      scid,
+			Signee:   contract.Creator,
+			Fid:      contract.Fid,
+			Filesize: strconv.FormatUint(contract.Filesize, 10),
+			Merkle:   contract.Merkle,
+			End:      endBlock,
+		}
+
+		cids = append(cids, scid)
+
+		k.SetStrays(ctx, newContract)
+
+	}
+
+	cidArr, err := json.Marshal(cids)
+	if err != nil {
+		return nil, err
+	}
+
+	newFtoC := types.FidCid{
+		Fid:  contract.Fid,
+		Cids: string(cidArr),
+	}
+	k.SetFidCid(ctx, newFtoC)
 
 	return &types.MsgPostContractResponse{}, nil
 }

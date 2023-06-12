@@ -95,6 +95,10 @@ func (k Keeper) RequestAttestation(ctx sdk.Context, cid string, creator string) 
 
 	providerAddresses := make([]string, FormSize)
 
+	if len(providers) < FormSize {
+		return nil, sdkerrors.Wrapf(types.ErrProviderNotFound, "not enough providers online")
+	}
+
 	for i := 0; i < FormSize; i++ {
 		p := providers[i]
 
