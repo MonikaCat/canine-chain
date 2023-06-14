@@ -21,7 +21,7 @@ func (suite *KeeperTestSuite) TestPostContracts() {
 	testAddresses, err := testutil.CreateTestAddresses("cosmos", 2)
 	suite.Require().NoError(err)
 
-	creator := testAddresses[0]
+	provider := testAddresses[0]
 	buyer := testAddresses[1]
 
 	cases := []struct {
@@ -36,11 +36,8 @@ func (suite *KeeperTestSuite) TestPostContracts() {
 			name: "provider_doesn't_exist",
 			preRun: func() *types.MsgPostContract {
 				return &types.MsgPostContract{
-					Creator:  creator,
-					Merkle:   "1",
-					Signee:   "1",
-					Filesize: "1",
-					Fid:      "1",
+					Creator: provider,
+					Cid:     cid,
 				}
 			},
 			expErr:    true,
@@ -52,26 +49,23 @@ func (suite *KeeperTestSuite) TestPostContracts() {
 			preRun: func() *types.MsgPostContract {
 				// Set provider with invalid totalspace string
 				p := types.Providers{
-					Address:         creator,
+					Address:         provider,
 					Ip:              "123.0.0.0",
 					Totalspace:      "bad_content",
 					BurnedContracts: "",
-					Creator:         creator,
+					Creator:         provider,
 				}
 				sKeeper.SetProviders(suite.ctx, p)
-				_, found := sKeeper.GetProviders(suite.ctx, creator)
+				_, found := sKeeper.GetProviders(suite.ctx, provider)
 				suite.Require().True(found)
 				return &types.MsgPostContract{
-					Creator:  creator,
-					Merkle:   "1",
-					Signee:   "1",
-					Filesize: "1",
-					Fid:      "1",
+					Creator: provider,
+					Cid:     cid,
 				}
 			},
 			postRun: func() {
 				// fix the bad format for next tc
-				p, found := sKeeper.GetProviders(suite.ctx, creator)
+				p, found := sKeeper.GetProviders(suite.ctx, provider)
 				suite.Require().True(found)
 				p.Totalspace = "100000"
 				sKeeper.SetProviders(suite.ctx, p)
@@ -84,11 +78,8 @@ func (suite *KeeperTestSuite) TestPostContracts() {
 			name: "bad_filesize_format",
 			preRun: func() *types.MsgPostContract {
 				return &types.MsgPostContract{
-					Creator:  creator,
-					Merkle:   "1",
-					Signee:   "1",
-					Filesize: "bad_filesize",
-					Fid:      "1",
+					Creator: provider,
+					Cid:     cid,
 				}
 			},
 			expErr:    true,
@@ -99,11 +90,8 @@ func (suite *KeeperTestSuite) TestPostContracts() {
 			name: "not_enough_provider_storage",
 			preRun: func() *types.MsgPostContract {
 				return &types.MsgPostContract{
-					Creator:  creator,
-					Merkle:   "1",
-					Signee:   "1",
-					Filesize: "1000001",
-					Fid:      "1",
+					Creator: provider,
+					Cid:     cid,
 				}
 			},
 			expErr:    true,
@@ -115,11 +103,8 @@ func (suite *KeeperTestSuite) TestPostContracts() {
 			preRun: func() *types.MsgPostContract {
 				suite.Require().NoError(err)
 				return &types.MsgPostContract{
-					Creator:  creator,
-					Merkle:   "1",
-					Signee:   buyer,
-					Filesize: "10000",
-					Fid:      "123",
+					Creator: provider,
+					Cid:     cid,
 				}
 			},
 			expErr: false,
@@ -129,11 +114,8 @@ func (suite *KeeperTestSuite) TestPostContracts() {
 			name: "cannot_duplicate_contract",
 			preRun: func() *types.MsgPostContract {
 				return &types.MsgPostContract{
-					Creator:  creator,
-					Merkle:   "1",
-					Signee:   buyer,
-					Filesize: "10000",
-					Fid:      "123",
+					Creator: provider,
+					Cid:     cid,
 				}
 			},
 			expErr:    true,
@@ -146,13 +128,27 @@ func (suite *KeeperTestSuite) TestPostContracts() {
 			// preRun must be defined to get MsgPostContract
 			suite.Require().NotNil(tc.preRun)
 			c := tc.preRun()
-			_, err := msgSrvr.PostContract(goCtx, c)
+
+			res, err := msgSrvr.SignContract(goCtx, &types.MsgSignContract{
+				Creator:  buyer,
+				Fid:      "jklf19hmm8qjl82slmpkn055u8hv5yq62ztncragw90qn4yayrhyg5tcsja9phf",
+				Merkle:   "86c04e031c9073eb099679cf990472bb7fa3b0a1ac8e1b92bfb1a90937aaf2e1a63550e6014e59395cc83d33f42090f093cb2b17b6535615545de47432999494",
+				Duration: 0,
+				FileSize: 4179961470,
+			})
+
+			cid := res.Cid
+
+			suite.Require().NoError(err)
+
+			_, err = msgSrvr.PostContract(goCtx, c)
 			if tc.expErr {
 				suite.Require().Error(err)
 				suite.Require().Contains(err.Error(), tc.expErrMsg)
 			} else {
 				suite.Require().NoError(err)
 			}
+			sKeeper.RemoveContracts(suite.ctx, cid)
 
 			if tc.postRun != nil {
 				tc.postRun()

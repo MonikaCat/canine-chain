@@ -58,6 +58,7 @@ message MsgSignContract {
 
 message MsgSignContractResponse {
   repeated string providers = 1;
+  string cid = 2;
 }
 
 

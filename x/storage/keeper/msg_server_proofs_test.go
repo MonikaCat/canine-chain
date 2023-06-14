@@ -174,13 +174,26 @@ func (suite *KeeperTestSuite) TestPostProof() {
 
 	_, found := keeper.GetStoragePaymentInfo(suite.ctx, user.String())
 	suite.Require().Equal(true, found)
+
+	_, err = msgSrvr.SignContract(context, &types.MsgSignContract{
+		Creator:  user.String(),
+		Fid:      "fid",
+		FileSize: filesize,
+		Merkle:   merkleroot,
+	})
+	suite.Require().NoError(err)
+
+	// Sign Contract #2 for active deal
+	_, err = msgSrvr.SignContract(context, &types.MsgSignContract{
+		Creator: user.String(),
+		Fid:     "fid2",
+	})
+	suite.Require().Error(err)
+
 	// Post Contract
 	_, err = msgSrvr.PostContract(context, &types.MsgPostContract{
-		Creator:  testProvider.String(),
-		Signee:   user.String(),
-		Filesize: filesize,
-		Fid:      "fid",
-		Merkle:   merkleroot,
+		Creator: testProvider.String(),
+		Cid1:    user.String(),
 	})
 	suite.Require().NoError(err)
 	h := sha256.New()
@@ -206,18 +219,6 @@ func (suite *KeeperTestSuite) TestPostProof() {
 	cid2, err := k.MakeCid(hashName2)
 	suite.Require().NoError(err)
 	// Sign Contract for active deal
-	_, err = msgSrvr.SignContract(context, &types.MsgSignContract{
-		Creator: user.String(),
-		Fid:     "fid",
-	})
-	suite.Require().NoError(err)
-
-	// Sign Contract #2 for active deal
-	_, err = msgSrvr.SignContract(context, &types.MsgSignContract{
-		Creator: user.String(),
-		Fid:     "fid2",
-	})
-	suite.Require().Error(err)
 
 	// Storage Provider get file and create merkle for proof
 	// for tc 1 and 2

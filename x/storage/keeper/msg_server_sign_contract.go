@@ -130,7 +130,7 @@ func (k Keeper) PostNewContract(ctx sdk.Context, fid string, creator string, mer
 		}
 	}
 
-	return &types.MsgSignContractResponse{}, nil
+	return &types.MsgSignContractResponse{Providers: providerList, Cid: contract.Cid}, nil
 }
 
 func (k msgServer) SignContract(goCtx context.Context, msg *types.MsgSignContract) (*types.MsgSignContractResponse, error) {
