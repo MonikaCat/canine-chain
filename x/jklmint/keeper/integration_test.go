@@ -8,12 +8,12 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
+	"github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 	"github.com/cosmos/cosmos-sdk/simapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/jklmint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	jklapp "github.com/jackalLabs/canine-chain/app"
+	jklapp "github.com/MonikaCat/canine-chain/v2/app"
 )
 
 // returns context and an app with updated mint keeper

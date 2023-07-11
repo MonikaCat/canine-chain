@@ -1,10 +1,10 @@
 package keeper_test
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/testutil"
+	"github.com/MonikaCat/canine-chain/v2/x/rns/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/rns/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/testutil"
-	"github.com/jackalLabs/canine-chain/x/rns/keeper"
-	"github.com/jackalLabs/canine-chain/x/rns/types"
 )
 
 func (suite *KeeperTestSuite) TestMsgTransfer() {

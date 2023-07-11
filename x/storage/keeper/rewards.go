@@ -9,7 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerror "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/jackalLabs/canine-chain/x/storage/types"
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 )
 
 func getTotalSize(allDeals []types.ActiveDeals) sdk.Dec {

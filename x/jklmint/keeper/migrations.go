@@ -3,8 +3,8 @@ package keeper
 // DONTCOVER
 
 import (
+	v210 "github.com/MonikaCat/canine-chain/v2/x/jklmint/legacy/v210"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	v210 "github.com/jackalLabs/canine-chain/x/jklmint/legacy/v210"
 )
 
 // Migrator is a struct for handling in-place store migrations.

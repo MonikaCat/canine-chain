@@ -1,9 +1,9 @@
 package keeper
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
 )
 
 // SetPubkey set a specific pubkey in the store from its index

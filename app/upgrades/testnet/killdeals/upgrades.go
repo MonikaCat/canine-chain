@@ -1,13 +1,13 @@
 package killdeals
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades"
+	"github.com/MonikaCat/canine-chain/v2/types"
+	storagemodulekeeper "github.com/MonikaCat/canine-chain/v2/x/storage/keeper"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	"github.com/jackalLabs/canine-chain/app/upgrades"
-	"github.com/jackalLabs/canine-chain/types"
-	storagemodulekeeper "github.com/jackalLabs/canine-chain/x/storage/keeper"
 )
 
 var _ upgrades.Upgrade = &Upgrade{}

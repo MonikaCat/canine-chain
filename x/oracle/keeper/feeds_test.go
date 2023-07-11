@@ -3,9 +3,9 @@ package keeper_test
 import (
 	"strconv"
 
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/oracle/keeper"
-	"github.com/jackalLabs/canine-chain/x/oracle/types"
 )
 
 // Prevent strconv unused error

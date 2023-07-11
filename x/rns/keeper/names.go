@@ -3,9 +3,9 @@ package keeper
 import (
 	"strings"
 
+	"github.com/MonikaCat/canine-chain/v2/x/rns/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/rns/types"
 )
 
 // SetNames set a specific names in the store from its index

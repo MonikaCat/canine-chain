@@ -1,10 +1,10 @@
 package cli
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/x/notifications/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	"github.com/jackalLabs/canine-chain/x/notifications/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )

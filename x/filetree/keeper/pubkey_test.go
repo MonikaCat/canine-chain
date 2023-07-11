@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/jackalLabs/canine-chain/x/filetree/keeper"
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 )
 
 func createPubkey(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Pubkey {

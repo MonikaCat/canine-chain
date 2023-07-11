@@ -2,8 +2,8 @@ package keeper_test
 
 import (
 	// sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/testutil"
-	types "github.com/jackalLabs/canine-chain/x/rns/types"
+	"github.com/MonikaCat/canine-chain/v2/testutil"
+	types "github.com/MonikaCat/canine-chain/v2/x/rns/types"
 )
 
 func (suite *KeeperTestSuite) TestListMsg() {

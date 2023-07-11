@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/MonikaCat/canine-chain/v2/x/notifications/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
-	"github.com/jackalLabs/canine-chain/x/notifications/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

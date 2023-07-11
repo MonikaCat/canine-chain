@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 )
 
 func HasViewingAccess(file types.Files, user string) (bool, error) {

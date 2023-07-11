@@ -10,8 +10,8 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	//	"github.com/jackalLabs/canine-chain/testutil/sample"
-	rnssimulation "github.com/jackalLabs/canine-chain/x/rns/simulation"
+	//	"github.com/MonikaCat/canine-chain/v2/testutil/sample"
+	rnssimulation "github.com/MonikaCat/canine-chain/v2/x/rns/simulation"
 )
 
 // TODO: rewrite tests but don't use ignite

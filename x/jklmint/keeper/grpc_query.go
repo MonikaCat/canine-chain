@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/jackalLabs/canine-chain/x/jklmint/types"
+	"github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 )
 
 var _ types.QueryServer = Keeper{}

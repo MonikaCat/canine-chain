@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"strings"
 
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
 )
 
 func (k msgServer) RemoveViewers(goCtx context.Context, msg *types.MsgRemoveViewers) (*types.MsgRemoveViewersResponse, error) {

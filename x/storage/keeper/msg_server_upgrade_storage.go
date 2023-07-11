@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerr "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
 )
 
 const (

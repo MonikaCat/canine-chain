@@ -3,9 +3,9 @@ package keeper
 import (
 	"fmt"
 
+	"github.com/MonikaCat/canine-chain/v2/x/notifications/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/notifications/types"
 )
 
 // SetNotifications set a specific notifications in the store from its index

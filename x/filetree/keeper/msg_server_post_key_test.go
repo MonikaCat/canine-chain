@@ -3,8 +3,8 @@ package keeper_test
 import (
 	"fmt"
 
-	"github.com/jackalLabs/canine-chain/testutil"
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
+	"github.com/MonikaCat/canine-chain/v2/testutil"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 )
 
 func (suite *KeeperTestSuite) TestMsgPostKey() {

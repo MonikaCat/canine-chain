@@ -3,9 +3,9 @@ package keeper
 import (
 	"strconv"
 
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
 )
 
 // SetStrays set a specific strays in the store from its index

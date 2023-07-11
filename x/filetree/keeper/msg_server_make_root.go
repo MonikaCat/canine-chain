@@ -5,8 +5,8 @@ import (
 	"crypto/sha256"
 	"fmt"
 
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
 )
 
 func (k msgServer) MakeRootFolder(ctx sdk.Context, creator string, viewers string, editors string, trackingNumber string) {

@@ -12,7 +12,7 @@
     + [jacob@notional.ventures](twitter.com/gadikian)
 
 ## Report Bugs
-[https://github.com/JackalLabs/canine-chain/issues](https://github.com/JackalLabs/canine-chain/issues)
+[https://github.com/MonikaCat/canine-chain/v2/issues](https://github.com/MonikaCat/canine-chain/v2/issues)
 
 ## Homepage
-[https://github.com/JackalLabs/canine-chain/#readme](https://github.com/JackalLabs/canine-chain/#readme)
+[https://github.com/MonikaCat/canine-chain/v2/#readme](https://github.com/MonikaCat/canine-chain/v2/#readme)

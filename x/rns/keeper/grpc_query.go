@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/jackalLabs/canine-chain/x/rns/types"
+	"github.com/MonikaCat/canine-chain/v2/x/rns/types"
 )
 
 var _ types.QueryServer = Keeper{}

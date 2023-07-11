@@ -1,9 +1,9 @@
 package v2
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/x/rns/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/jackalLabs/canine-chain/x/rns/types"
 )
 
 // MigrateStore performs in-place store migrations from v1 to v2

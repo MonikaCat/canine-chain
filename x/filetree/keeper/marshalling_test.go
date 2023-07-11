@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/MonikaCat/canine-chain/v2/testutil"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	"github.com/google/uuid"
-	"github.com/jackalLabs/canine-chain/testutil"
-	"github.com/jackalLabs/canine-chain/x/filetree/keeper"
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
 )
 
 func (suite *KeeperTestSuite) TestJSONMarshalling() {

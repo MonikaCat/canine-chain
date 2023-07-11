@@ -4,12 +4,12 @@ import (
 	gocontext "context"
 	"testing"
 
+	notifications "github.com/MonikaCat/canine-chain/v2/x/notifications"
+	"github.com/MonikaCat/canine-chain/v2/x/notifications/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/notifications/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	notifications "github.com/jackalLabs/canine-chain/x/notifications"
-	"github.com/jackalLabs/canine-chain/x/notifications/keeper"
-	"github.com/jackalLabs/canine-chain/x/notifications/types"
 	"github.com/stretchr/testify/suite"
 )
 

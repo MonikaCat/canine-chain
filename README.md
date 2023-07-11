@@ -2,9 +2,9 @@
 # Jackal Core
 **Jackal Core** is a blockchain built using Cosmos SDK and Tendermint.
 
-[![golangci-lint](https://github.com/JackalLabs/canine-chain/actions/workflows/golangci.yml/badge.svg)](https://github.com/JackalLabs/canine-chain/actions/workflows/golangci.yml)
-[![Test](https://github.com/JackalLabs/canine-chain/actions/workflows/test-unit.yml/badge.svg)](https://github.com/JackalLabs/canine-chain/actions/workflows/test-unit.yml)
-[![Build](https://github.com/JackalLabs/canine-chain/actions/workflows/build.yml/badge.svg)](https://github.com/JackalLabs/canine-chain/actions/workflows/build.yml)
+[![golangci-lint](https://github.com/MonikaCat/canine-chain/v2/actions/workflows/golangci.yml/badge.svg)](https://github.com/MonikaCat/canine-chain/v2/actions/workflows/golangci.yml)
+[![Test](https://github.com/MonikaCat/canine-chain/v2/actions/workflows/test-unit.yml/badge.svg)](https://github.com/MonikaCat/canine-chain/v2/actions/workflows/test-unit.yml)
+[![Build](https://github.com/MonikaCat/canine-chain/v2/actions/workflows/build.yml/badge.svg)](https://github.com/MonikaCat/canine-chain/v2/actions/workflows/build.yml)
 
 ## Pages
 
@@ -24,7 +24,7 @@ To install `canined` on your Linux machine:
 `go install ./...`
 
 ### Pre-built Binary
-[Releases](https://github.com/jackalLabs/canine-chain-chain/releases) and download the latest release. Move the executable to a folder in your `$PATH` and download [this](https://github.com/CosmWasm/wasmvm/raw/v1.1.1/internal/api/libwasmvm.x86_64.so) to `/lib/libwasmvm.x86_64.so` 
+[Releases](https://github.com/MonikaCat/canine-chain/v2-chain/releases) and download the latest release. Move the executable to a folder in your `$PATH` and download [this](https://github.com/CosmWasm/wasmvm/raw/v1.1.1/internal/api/libwasmvm.x86_64.so) to `/lib/libwasmvm.x86_64.so` 
 
 ```sh
 sudo wget https://github.com/CosmWasm/wasmvm/raw/v1.1.1/internal/api/libwasmvm.x86_64.so -O /lib/libwasmvm.x86_64.so

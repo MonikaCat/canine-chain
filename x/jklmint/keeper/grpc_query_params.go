@@ -3,8 +3,8 @@ package keeper
 import (
 	"context"
 
+	"github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/jklmint/types"
 )
 
 func (k Keeper) Params(c context.Context, _ *types.QueryParamsRequest) (*types.QueryParamsResponse, error) {

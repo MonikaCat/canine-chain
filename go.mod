@@ -1,4 +1,4 @@
-module github.com/jackalLabs/canine-chain
+module github.com/MonikaCat/canine-chain/v2
 
 go 1.20
 

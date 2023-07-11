@@ -3,9 +3,9 @@ package simulation
 import (
 	"strconv"
 
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	sdksim "github.com/cosmos/cosmos-sdk/types/simulation"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
 )
 
 func RandomizedGenState(simState *module.SimulationState) {

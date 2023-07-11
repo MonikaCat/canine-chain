@@ -3,14 +3,14 @@ package filetree
 import (
 	"math/rand"
 
+	filetreesimulation "github.com/MonikaCat/canine-chain/v2/x/filetree/simulation"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	simappparams "github.com/cosmos/cosmos-sdk/simapp/params"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
-	filetreesimulation "github.com/jackalLabs/canine-chain/x/filetree/simulation"
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
 )
 
 // avoid unused import issue

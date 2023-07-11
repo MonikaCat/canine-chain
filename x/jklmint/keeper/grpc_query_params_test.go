@@ -4,10 +4,10 @@ import (
 	gocontext "context"
 	"testing"
 
+	"github.com/MonikaCat/canine-chain/v2/app"
+	"github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/app"
-	"github.com/jackalLabs/canine-chain/x/jklmint/types"
 	"github.com/stretchr/testify/suite"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 )

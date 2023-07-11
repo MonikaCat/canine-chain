@@ -3,7 +3,7 @@ package canine_chain.notifications;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/jackalLabs/canine-chain/x/notifications/types";
+option go_package = "github.com/MonikaCat/canine-chain/v2/x/notifications/types";
 
 // Params defines the parameters for the module.
 message Params {

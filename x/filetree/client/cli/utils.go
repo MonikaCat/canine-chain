@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"strings"
 
+	filetypes "github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	eciesgo "github.com/ecies/go/v2"
-	filetypes "github.com/jackalLabs/canine-chain/x/filetree/types"
 	"github.com/spf13/cobra"
 )
 

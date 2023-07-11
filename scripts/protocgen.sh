@@ -21,5 +21,5 @@ done
 cd ..
 
 # move proto files to the right places
-cp -r github.com/jackalLabs/canine-chain/* ./
+cp -r github.com/MonikaCat/canine-chain/v2/* ./
 rm -rf github.com

@@ -11,14 +11,14 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/client/cli"
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/jackalLabs/canine-chain/x/oracle/client/cli"
-	"github.com/jackalLabs/canine-chain/x/oracle/keeper"
-	"github.com/jackalLabs/canine-chain/x/oracle/types"
 )
 
 var (

@@ -11,7 +11,7 @@ import "canine_chain/rns/bids.proto";
 import "canine_chain/rns/forsale.proto";
 import "canine_chain/rns/init.proto";
 
-option go_package = "github.com/jackalLabs/canine-chain/x/rns/types";
+option go_package = "github.com/MonikaCat/canine-chain/v2/x/rns/types";
 
 // Query defines the gRPC querier service.
 service Query {

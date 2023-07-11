@@ -1,8 +1,8 @@
 package simulation
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/x/rns/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/jackalLabs/canine-chain/x/rns/types"
 )
 
 func RandomizedGenState(simState *module.SimulationState) {

@@ -2,8 +2,8 @@ package cli_test
 
 import (
 	"strconv"
-	//	"github.com/jackalLabs/canine-chain/testutil/network"
-	//	"github.com/jackalLabs/canine-chain/testutil/nullify"
+	//	"github.com/MonikaCat/canine-chain/v2/testutil/network"
+	//	"github.com/MonikaCat/canine-chain/v2/testutil/nullify"
 )
 
 // Prevent strconv unused error

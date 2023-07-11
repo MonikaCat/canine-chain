@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
 )
 
 func (k msgServer) ResetEditors(goCtx context.Context, msg *types.MsgResetEditors) (*types.MsgResetEditorsResponse, error) {

@@ -3,9 +3,9 @@ package keeper
 import (
 	"context"
 
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
 )
 
 func (k msgServer) AddProviderClaimer(goCtx context.Context, msg *types.MsgAddClaimer) (*types.MsgAddClaimerResponse, error) {

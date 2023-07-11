@@ -1,8 +1,8 @@
 package keeper
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/x/notifications/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/notifications/types"
 )
 
 // GetParams get all parameters as types.Params

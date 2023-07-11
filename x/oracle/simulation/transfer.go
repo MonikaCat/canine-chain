@@ -3,11 +3,11 @@ package simulation
 import (
 	"math/rand"
 
+	"github.com/MonikaCat/canine-chain/v2/x/rns/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/rns/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
-	"github.com/jackalLabs/canine-chain/x/rns/keeper"
-	"github.com/jackalLabs/canine-chain/x/rns/types"
 )
 
 func SimulateMsgTransfer(

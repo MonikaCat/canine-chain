@@ -3,10 +3,10 @@ package jklmint
 import (
 	"time"
 
+	"github.com/MonikaCat/canine-chain/v2/x/jklmint/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/jklmint/keeper"
-	"github.com/jackalLabs/canine-chain/x/jklmint/types"
 )
 
 // BeginBlocker mints new tokens for the previous block.

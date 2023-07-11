@@ -1,9 +1,9 @@
 package keeper
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
 )
 
 // SetContracts set a specific contracts in the store from its index

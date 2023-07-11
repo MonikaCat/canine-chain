@@ -5,11 +5,11 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	"github.com/jackalLabs/canine-chain/x/filetree/keeper"
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
 	"github.com/spf13/cobra"
 )
 

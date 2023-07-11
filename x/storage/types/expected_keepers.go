@@ -1,9 +1,9 @@
 package types
 
 import (
+	oracletypes "github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
-	oracletypes "github.com/jackalLabs/canine-chain/x/oracle/types"
 )
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

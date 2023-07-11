@@ -11,7 +11,7 @@ RUN apt-get install git jq net-tools -y
 
 # cloning the release version
 ARG RELEASE
-RUN git clone -b ${RELEASE} https://github.com/JackalLabs/canine-chain.git /home/canine-validator
+RUN git clone -b ${RELEASE} https://github.com/MonikaCat/canine-chain/v2.git /home/canine-validator
 
 # installing the canine chain
 RUN make install

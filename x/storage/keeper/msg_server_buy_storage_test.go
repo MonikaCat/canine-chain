@@ -1,9 +1,9 @@
 package keeper_test
 
 import (
+	testutil "github.com/MonikaCat/canine-chain/v2/testutil"
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	testutil "github.com/jackalLabs/canine-chain/testutil"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
 )
 
 func (suite *KeeperTestSuite) TestBuyStorage() {

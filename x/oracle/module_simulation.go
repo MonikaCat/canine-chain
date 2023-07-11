@@ -10,9 +10,9 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	//	"github.com/jackalLabs/canine-chain/testutil/sample"
-	oraclesimulation "github.com/jackalLabs/canine-chain/x/oracle/simulation"
-	"github.com/jackalLabs/canine-chain/x/oracle/types"
+	//	"github.com/MonikaCat/canine-chain/v2/testutil/sample"
+	oraclesimulation "github.com/MonikaCat/canine-chain/v2/x/oracle/simulation"
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 )
 
 // TODO: rewrite tests but don't use ignite

@@ -9,14 +9,15 @@ import (
 	"testing"
 	"time"
 
-	filetreemoduletypes "github.com/jackalLabs/canine-chain/x/filetree/types"
-	oraclemoduletypes "github.com/jackalLabs/canine-chain/x/oracle/types"
-	rnsmoduletypes "github.com/jackalLabs/canine-chain/x/rns/types"
-	storagemoduletypes "github.com/jackalLabs/canine-chain/x/storage/types"
+	filetreemoduletypes "github.com/MonikaCat/canine-chain/v2/x/filetree/types"
+	oraclemoduletypes "github.com/MonikaCat/canine-chain/v2/x/oracle/types"
+	rnsmoduletypes "github.com/MonikaCat/canine-chain/v2/x/rns/types"
+	storagemoduletypes "github.com/MonikaCat/canine-chain/v2/x/storage/types"
 
 	"github.com/cosmos/cosmos-sdk/store"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 
+	minttypes "github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/simapp"
@@ -38,7 +39,6 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	ibctransfertypes "github.com/cosmos/ibc-go/v3/modules/apps/transfer/types"
 	ibchost "github.com/cosmos/ibc-go/v3/modules/core/24-host"
-	minttypes "github.com/jackalLabs/canine-chain/x/jklmint/types"
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"

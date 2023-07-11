@@ -1,14 +1,14 @@
 package alpha11
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades"
+	"github.com/MonikaCat/canine-chain/v2/types"
+	oraclekeeper "github.com/MonikaCat/canine-chain/v2/x/oracle/keeper"
+	oraclemoduletypes "github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	"github.com/jackalLabs/canine-chain/app/upgrades"
-	"github.com/jackalLabs/canine-chain/types"
-	oraclekeeper "github.com/jackalLabs/canine-chain/x/oracle/keeper"
-	oraclemoduletypes "github.com/jackalLabs/canine-chain/x/oracle/types"
 )
 
 var _ upgrades.Upgrade = &Upgrade{}

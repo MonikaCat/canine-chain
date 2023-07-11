@@ -9,7 +9,7 @@ import "canine_chain/notifications/notifications.proto";
 import "canine_chain/notifications/noti_counter.proto";
 // this line is used by starport scaffolding # 1
 
-option go_package = "github.com/jackalLabs/canine-chain/x/notifications/types";
+option go_package = "github.com/MonikaCat/canine-chain/v2/x/notifications/types";
 
 // Query defines the gRPC querier service.
 service Query {

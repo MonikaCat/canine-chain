@@ -1,12 +1,12 @@
 package v210
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades"
+	mintmoduletypes "github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	"github.com/jackalLabs/canine-chain/app/upgrades"
-	mintmoduletypes "github.com/jackalLabs/canine-chain/x/jklmint/types"
 )
 
 var _ upgrades.Upgrade = &Upgrade{}

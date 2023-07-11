@@ -3,9 +3,9 @@ package cli
 import (
 	"strconv"
 
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
 	"github.com/spf13/cobra"
 )
 

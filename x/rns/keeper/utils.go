@@ -3,8 +3,8 @@ package keeper
 import (
 	"strings"
 
+	"github.com/MonikaCat/canine-chain/v2/x/rns/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/jackalLabs/canine-chain/x/rns/types"
 )
 
 func GetTLD(name string) (string, error) {

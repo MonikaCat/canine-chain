@@ -4,12 +4,12 @@ import (
 	gocontext "context"
 	"testing"
 
+	filetree "github.com/MonikaCat/canine-chain/v2/x/filetree"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	filetree "github.com/jackalLabs/canine-chain/x/filetree"
-	"github.com/jackalLabs/canine-chain/x/filetree/keeper"
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
 	"github.com/stretchr/testify/suite"
 )
 

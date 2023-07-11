@@ -3,9 +3,9 @@ package keeper_test
 import (
 	"strconv"
 
+	"github.com/MonikaCat/canine-chain/v2/x/storage/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/storage/keeper"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
 )
 
 // Prevent strconv unused error

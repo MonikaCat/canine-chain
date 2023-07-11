@@ -8,14 +8,14 @@ import (
 
 	sdkClient "github.com/cosmos/cosmos-sdk/client"
 
+	"github.com/MonikaCat/canine-chain/v2/testutil"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	"github.com/cosmos/cosmos-sdk/crypto/hd"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	sdkTypes "github.com/cosmos/cosmos-sdk/types"
 	eciesgo "github.com/ecies/go/v2"
-	"github.com/jackalLabs/canine-chain/testutil"
-	"github.com/jackalLabs/canine-chain/x/filetree/keeper"
-	"github.com/jackalLabs/canine-chain/x/filetree/types"
 )
 
 func (suite *KeeperTestSuite) TestMsgAddViewers() {

@@ -4,15 +4,15 @@ import (
 	gocontext "context"
 	"testing"
 
+	storage "github.com/MonikaCat/canine-chain/v2/x/storage"
+	"github.com/MonikaCat/canine-chain/v2/x/storage/keeper"
+	storagetestutil "github.com/MonikaCat/canine-chain/v2/x/storage/testutil"
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
-	storage "github.com/jackalLabs/canine-chain/x/storage"
-	"github.com/jackalLabs/canine-chain/x/storage/keeper"
-	storagetestutil "github.com/jackalLabs/canine-chain/x/storage/testutil"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
 	"github.com/stretchr/testify/suite"
 )
 

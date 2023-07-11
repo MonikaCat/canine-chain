@@ -1,8 +1,8 @@
 package keeper_test
 
 import (
-	testutil "github.com/jackalLabs/canine-chain/testutil"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
+	testutil "github.com/MonikaCat/canine-chain/v2/testutil"
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 )
 
 // testing msg server files for: init_provider, set_provider_ip, set_provider_totalspace

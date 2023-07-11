@@ -2,8 +2,8 @@ package jklmint_test
 
 import (
 	"testing"
-	//	keepertest "github.com/jackalLabs/canine-chain/testutil/keeper"
-	//	"github.com/jackalLabs/canine-chain/testutil/nullify"
+	//	keepertest "github.com/MonikaCat/canine-chain/v2/testutil/keeper"
+	//	"github.com/MonikaCat/canine-chain/v2/testutil/nullify"
 )
 
 // TODO: rewrite test but do not use testutil stuff

@@ -3,10 +3,10 @@ package storage
 import (
 	"time"
 
+	"github.com/MonikaCat/canine-chain/v2/x/storage/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/storage/keeper"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
 )
 
 func BeginBlocker(ctx sdk.Context, k keeper.Keeper) {

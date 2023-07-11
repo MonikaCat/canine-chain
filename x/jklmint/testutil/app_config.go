@@ -4,19 +4,19 @@ package testutil
 
 import (
 	"cosmossdk.io/core/appconfig"
+	_ "github.com/MonikaCat/canine-chain/v2/x/jklmint"
 	_ "github.com/cosmos/cosmos-sdk/x/auth" //nolint:revive // this is a test
 	_ "github.com/cosmos/cosmos-sdk/x/bank"
 	_ "github.com/cosmos/cosmos-sdk/x/genutil"
 	_ "github.com/cosmos/cosmos-sdk/x/params"
 	_ "github.com/cosmos/cosmos-sdk/x/staking"
-	_ "github.com/jackalLabs/canine-chain/x/jklmint"
 
+	minttypes "github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	minttypes "github.com/jackalLabs/canine-chain/x/jklmint/types"
 
 	runtimev1alpha1 "cosmossdk.io/api/cosmos/app/runtime/v1alpha1"
 	appv1alpha1 "cosmossdk.io/api/cosmos/app/v1alpha1"

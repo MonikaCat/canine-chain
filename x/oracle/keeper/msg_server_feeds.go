@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/oracle/types"
 )
 
 func (k msgServer) CreateFeed(goCtx context.Context, msg *types.MsgCreateFeed) (*types.MsgCreateFeedResponse, error) {

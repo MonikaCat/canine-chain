@@ -6,7 +6,7 @@ import "canine_chain/filetree/params.proto";
 import "canine_chain/filetree/files.proto";
 import "canine_chain/filetree/pubkey.proto";
 
-option go_package = "github.com/jackalLabs/canine-chain/x/filetree/types";
+option go_package = "github.com/MonikaCat/canine-chain/v2/x/filetree/types";
 
 // GenesisState defines the filetree module's genesis state.
 message GenesisState {

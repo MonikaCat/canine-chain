@@ -5,15 +5,15 @@ import (
 
 	gocontext "context"
 
+	oracle "github.com/MonikaCat/canine-chain/v2/x/oracle"
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/keeper"
+	oracletestutil "github.com/MonikaCat/canine-chain/v2/x/oracle/testutil"
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
-	oracle "github.com/jackalLabs/canine-chain/x/oracle"
-	"github.com/jackalLabs/canine-chain/x/oracle/keeper"
-	oracletestutil "github.com/jackalLabs/canine-chain/x/oracle/testutil"
-	"github.com/jackalLabs/canine-chain/x/oracle/types"
 	"github.com/stretchr/testify/suite"
 )
 

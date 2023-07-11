@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/jackalLabs/canine-chain/x/notifications/types"
+	"github.com/MonikaCat/canine-chain/v2/x/notifications/types"
 )
 
 type msgServer struct {

@@ -3,9 +3,9 @@ package keeper
 // DONTCOVER
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/x/storage/legacy/paramUpgrade"
+	v2 "github.com/MonikaCat/canine-chain/v2/x/storage/legacy/v2"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/storage/legacy/paramUpgrade"
-	v2 "github.com/jackalLabs/canine-chain/x/storage/legacy/v2"
 )
 
 // Migrator is a struct for handling in-place store migrations.

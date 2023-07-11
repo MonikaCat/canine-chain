@@ -1,9 +1,9 @@
 package oracle
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/oracle/keeper"
-	"github.com/jackalLabs/canine-chain/x/oracle/types"
 )
 
 // InitGenesis initializes the capability module's state from a provided genesis

@@ -3,10 +3,10 @@ package filetree
 import (
 	"fmt"
 
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/keeper"
+	types "github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/jackalLabs/canine-chain/x/filetree/keeper"
-	types "github.com/jackalLabs/canine-chain/x/filetree/types"
 )
 
 // NewHandler ...

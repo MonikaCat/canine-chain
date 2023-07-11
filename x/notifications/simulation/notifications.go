@@ -5,13 +5,13 @@ import (
 	"math/rand"
 	"strconv"
 
+	"github.com/MonikaCat/canine-chain/v2/x/notifications/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/notifications/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	simappparams "github.com/cosmos/cosmos-sdk/simapp/params"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
-	"github.com/jackalLabs/canine-chain/x/notifications/keeper"
-	"github.com/jackalLabs/canine-chain/x/notifications/types"
 )
 
 // Prevent strconv unused error

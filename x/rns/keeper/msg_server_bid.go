@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/MonikaCat/canine-chain/v2/x/rns/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/rns/types"
 )
 
 func (k Keeper) AddBid(ctx sdk.Context, sender string, name string, bid string) error {

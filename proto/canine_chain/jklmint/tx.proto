@@ -1,7 +1,7 @@
 syntax = "proto3";
 package canine_chain.jklmint;
 
-option go_package = "github.com/jackalLabs/canine-chain/x/jklmint/types";
+option go_package = "github.com/MonikaCat/canine-chain/v2/x/jklmint/types";
 
 // Msg defines the Msg service.
 service Msg {}

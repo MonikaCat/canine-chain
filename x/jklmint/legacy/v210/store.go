@@ -1,9 +1,9 @@
 package v210
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/jackalLabs/canine-chain/x/jklmint/types"
 )
 
 // MigrateStore performs in-place store migrations from v1 to v2

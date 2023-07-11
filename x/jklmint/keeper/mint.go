@@ -3,10 +3,10 @@ package keeper
 import (
 	"fmt"
 
+	"github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
+	storeTypes "github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/jklmint/types"
-	storeTypes "github.com/jackalLabs/canine-chain/x/storage/types"
 )
 
 func (k Keeper) BlockMint(ctx sdk.Context) {

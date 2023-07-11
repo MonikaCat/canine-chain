@@ -11,12 +11,12 @@ import (
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
 
-	moduletestutil "github.com/jackalLabs/canine-chain/types/module/testutil" // when importing from sdk,'go mod tidy' keeps trying to import from v0.46.
+	moduletestutil "github.com/MonikaCat/canine-chain/v2/types/module/testutil" // when importing from sdk,'go mod tidy' keeps trying to import from v0.46.
 
+	canineglobaltestutil "github.com/MonikaCat/canine-chain/v2/testutil"
+	"github.com/MonikaCat/canine-chain/v2/x/filetree/keeper"
+	types "github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	canineglobaltestutil "github.com/jackalLabs/canine-chain/testutil"
-	"github.com/jackalLabs/canine-chain/x/filetree/keeper"
-	types "github.com/jackalLabs/canine-chain/x/filetree/types"
 )
 
 // setupFiletreeKeeper creates a filetreeKeeper as well as all its dependencies.

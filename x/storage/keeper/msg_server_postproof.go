@@ -13,7 +13,7 @@ import (
 	merkletree "github.com/wealdtech/go-merkletree"
 	"github.com/wealdtech/go-merkletree/sha3"
 
-	"github.com/jackalLabs/canine-chain/x/storage/types"
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 )
 
 func (k msgServer) Postproof(goCtx context.Context, msg *types.MsgPostproof) (*types.MsgPostproofResponse, error) {

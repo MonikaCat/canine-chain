@@ -7,9 +7,9 @@ import (
 	"io"
 	"time"
 
-	testutil "github.com/jackalLabs/canine-chain/testutil"
-	"github.com/jackalLabs/canine-chain/x/storage/keeper"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
+	testutil "github.com/MonikaCat/canine-chain/v2/testutil"
+	"github.com/MonikaCat/canine-chain/v2/x/storage/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 )
 
 const tst = "testownercid"

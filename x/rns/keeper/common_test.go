@@ -13,15 +13,15 @@ import (
 
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	moduletestutil "github.com/jackalLabs/canine-chain/types/module/testutil" // when importing from sdk,'go mod tidy' keeps trying to import from v0.46.
+	moduletestutil "github.com/MonikaCat/canine-chain/v2/types/module/testutil" // when importing from sdk,'go mod tidy' keeps trying to import from v0.46.
 
+	canineglobaltestutil "github.com/MonikaCat/canine-chain/v2/testutil"
+	"github.com/MonikaCat/canine-chain/v2/x/rns/keeper"
+	rnstestutil "github.com/MonikaCat/canine-chain/v2/x/rns/testutil"
+	types "github.com/MonikaCat/canine-chain/v2/x/rns/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	"github.com/golang/mock/gomock"
-	canineglobaltestutil "github.com/jackalLabs/canine-chain/testutil"
-	"github.com/jackalLabs/canine-chain/x/rns/keeper"
-	rnstestutil "github.com/jackalLabs/canine-chain/x/rns/testutil"
-	types "github.com/jackalLabs/canine-chain/x/rns/types"
 )
 
 // setupRNSKeeper creates a rnsKeeper as well as all its dependencies.

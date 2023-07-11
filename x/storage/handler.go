@@ -3,10 +3,10 @@ package storage
 import (
 	"fmt"
 
+	"github.com/MonikaCat/canine-chain/v2/x/storage/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/storage/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/jackalLabs/canine-chain/x/storage/keeper"
-	"github.com/jackalLabs/canine-chain/x/storage/types"
 )
 
 // NewHandler ...

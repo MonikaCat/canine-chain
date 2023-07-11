@@ -1,8 +1,8 @@
 package v121
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/jackalLabs/canine-chain/app/upgrades"
 )
 
 import (

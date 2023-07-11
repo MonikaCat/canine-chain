@@ -8,18 +8,18 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/jackalLabs/canine-chain/app/upgrades"
-	"github.com/jackalLabs/canine-chain/app/upgrades/recovery"
-	v121 "github.com/jackalLabs/canine-chain/app/upgrades/testnet/121"
-	"github.com/jackalLabs/canine-chain/app/upgrades/testnet/alpha11"
-	"github.com/jackalLabs/canine-chain/app/upgrades/testnet/alpha13"
-	"github.com/jackalLabs/canine-chain/app/upgrades/testnet/async"
-	"github.com/jackalLabs/canine-chain/app/upgrades/testnet/beta6"
-	"github.com/jackalLabs/canine-chain/app/upgrades/testnet/beta7"
-	"github.com/jackalLabs/canine-chain/app/upgrades/testnet/fixstrays"
-	"github.com/jackalLabs/canine-chain/app/upgrades/testnet/killdeals"
-	paramUpgrade "github.com/jackalLabs/canine-chain/app/upgrades/testnet/params"
-	v210 "github.com/jackalLabs/canine-chain/app/upgrades/v210"
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades"
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades/recovery"
+	v121 "github.com/MonikaCat/canine-chain/v2/app/upgrades/testnet/121"
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades/testnet/alpha11"
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades/testnet/alpha13"
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades/testnet/async"
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades/testnet/beta6"
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades/testnet/beta7"
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades/testnet/fixstrays"
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades/testnet/killdeals"
+	paramUpgrade "github.com/MonikaCat/canine-chain/v2/app/upgrades/testnet/params"
+	v210 "github.com/MonikaCat/canine-chain/v2/app/upgrades/v210"
 
 	"github.com/prometheus/client_golang/prometheus"
 
@@ -123,46 +123,46 @@ import (
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmclient "github.com/CosmWasm/wasmd/x/wasm/client"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
-	wasmappparams "github.com/jackalLabs/canine-chain/app/params"
+	wasmappparams "github.com/MonikaCat/canine-chain/v2/app/params"
 
-	mint "github.com/jackalLabs/canine-chain/x/jklmint"
-	mintkeeper "github.com/jackalLabs/canine-chain/x/jklmint/keeper"
-	minttypes "github.com/jackalLabs/canine-chain/x/jklmint/types"
+	mint "github.com/MonikaCat/canine-chain/v2/x/jklmint"
+	mintkeeper "github.com/MonikaCat/canine-chain/v2/x/jklmint/keeper"
+	minttypes "github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 
-	rnsmodule "github.com/jackalLabs/canine-chain/x/rns"
-	rnsmodulekeeper "github.com/jackalLabs/canine-chain/x/rns/keeper"
-	rnsmoduletypes "github.com/jackalLabs/canine-chain/x/rns/types"
+	rnsmodule "github.com/MonikaCat/canine-chain/v2/x/rns"
+	rnsmodulekeeper "github.com/MonikaCat/canine-chain/v2/x/rns/keeper"
+	rnsmoduletypes "github.com/MonikaCat/canine-chain/v2/x/rns/types"
 
-	oraclemodule "github.com/jackalLabs/canine-chain/x/oracle"
-	oraclemodulekeeper "github.com/jackalLabs/canine-chain/x/oracle/keeper"
-	oraclemoduletypes "github.com/jackalLabs/canine-chain/x/oracle/types"
+	oraclemodule "github.com/MonikaCat/canine-chain/v2/x/oracle"
+	oraclemodulekeeper "github.com/MonikaCat/canine-chain/v2/x/oracle/keeper"
+	oraclemoduletypes "github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 
-	storagemodule "github.com/jackalLabs/canine-chain/x/storage"
-	storagemodulekeeper "github.com/jackalLabs/canine-chain/x/storage/keeper"
-	storagemoduletypes "github.com/jackalLabs/canine-chain/x/storage/types"
+	storagemodule "github.com/MonikaCat/canine-chain/v2/x/storage"
+	storagemodulekeeper "github.com/MonikaCat/canine-chain/v2/x/storage/keeper"
+	storagemoduletypes "github.com/MonikaCat/canine-chain/v2/x/storage/types"
 
-	filetreemodule "github.com/jackalLabs/canine-chain/x/filetree"
-	filetreemodulekeeper "github.com/jackalLabs/canine-chain/x/filetree/keeper"
-	filetreemoduletypes "github.com/jackalLabs/canine-chain/x/filetree/types"
+	filetreemodule "github.com/MonikaCat/canine-chain/v2/x/filetree"
+	filetreemodulekeeper "github.com/MonikaCat/canine-chain/v2/x/filetree/keeper"
+	filetreemoduletypes "github.com/MonikaCat/canine-chain/v2/x/filetree/types"
 
-	notificationsmodule "github.com/jackalLabs/canine-chain/x/notifications"
-	notificationsmodulekeeper "github.com/jackalLabs/canine-chain/x/notifications/keeper"
-	notificationsmoduletypes "github.com/jackalLabs/canine-chain/x/notifications/types"
+	notificationsmodule "github.com/MonikaCat/canine-chain/v2/x/notifications"
+	notificationsmodulekeeper "github.com/MonikaCat/canine-chain/v2/x/notifications/keeper"
+	notificationsmoduletypes "github.com/MonikaCat/canine-chain/v2/x/notifications/types"
 
 	/*
 
-		dsigmodule "github.com/jackalLabs/canine-chain/x/dsig"
-		dsigmodulekeeper "github.com/jackalLabs/canine-chain/x/dsig/keeper"
-		dsigmoduletypes "github.com/jackalLabs/canine-chain/x/dsig/types"
+		dsigmodule "github.com/MonikaCat/canine-chain/v2/x/dsig"
+		dsigmodulekeeper "github.com/MonikaCat/canine-chain/v2/x/dsig/keeper"
+		dsigmoduletypes "github.com/MonikaCat/canine-chain/v2/x/dsig/types"
 
 	*/
 
-	"github.com/jackalLabs/canine-chain/app/upgrades/bouncybulldog"
+	"github.com/MonikaCat/canine-chain/v2/app/upgrades/bouncybulldog"
 
 	// unnamed import of statik for swagger UI support
 	_ "github.com/cosmos/cosmos-sdk/client/docs/statik"
 
-	"github.com/jackalLabs/canine-chain/docs"
+	"github.com/MonikaCat/canine-chain/v2/docs"
 )
 
 const appName = "JackalApp"
@@ -177,7 +177,7 @@ var (
 	ProposalsEnabled = "false"
 	// EnableSpecificProposals if set to non-empty string it must be comma-separated list of values that are all a subset
 	// of "EnableAllProposals" (takes precedence over ProposalsEnabled)
-	// https://github.com/jackalLabs/canine-chain/blob/02a54d33ff2c064f3539ae12d75d027d9c665f05/x/wasm/internal/types/proposal.go#L28-L34
+	// https://github.com/MonikaCat/canine-chain/v2/blob/02a54d33ff2c064f3539ae12d75d027d9c665f05/x/wasm/internal/types/proposal.go#L28-L34
 	EnableSpecificProposals = ""
 )
 

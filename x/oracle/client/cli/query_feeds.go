@@ -3,9 +3,9 @@ package cli
 import (
 	"context"
 
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/jackalLabs/canine-chain/x/oracle/types"
 	"github.com/spf13/cobra"
 )
 

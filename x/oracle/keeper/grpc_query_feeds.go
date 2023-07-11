@@ -3,8 +3,8 @@ package keeper
 import (
 	"context"
 
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/oracle/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

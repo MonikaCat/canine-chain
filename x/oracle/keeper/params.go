@@ -1,8 +1,8 @@
 package keeper
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/x/oracle/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/oracle/types"
 )
 
 // GetParams returns the total set of parameters.

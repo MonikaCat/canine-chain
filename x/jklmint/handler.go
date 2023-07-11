@@ -3,10 +3,10 @@ package jklmint
 import (
 	"fmt"
 
+	"github.com/MonikaCat/canine-chain/v2/x/jklmint/keeper"
+	"github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/jackalLabs/canine-chain/x/jklmint/keeper"
-	"github.com/jackalLabs/canine-chain/x/jklmint/types"
 )
 
 // NewHandler ...

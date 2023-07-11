@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/jackalLabs/canine-chain/x/jklmint/types"
+	"github.com/MonikaCat/canine-chain/v2/x/jklmint/types"
 	"github.com/stretchr/testify/require"
 )
 

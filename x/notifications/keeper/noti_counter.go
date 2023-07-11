@@ -1,9 +1,9 @@
 package keeper
 
 import (
+	"github.com/MonikaCat/canine-chain/v2/x/notifications/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/jackalLabs/canine-chain/x/notifications/types"
 )
 
 // SetNotiCounter set a specific notiCounter in the store from its index
